@@ -1,5 +1,5 @@
 {
-  "name": "my-turborepo",
+  "name": "mri-ecommerce",
   "private": true,
   "scripts": {
     "build": "turbo run build",
