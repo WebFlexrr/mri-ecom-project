@@ -40,6 +40,19 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --color-bloom-coral:var(--bloom-coral);
+  --color-bloom-sage:var(--bloom-sage);
+  --color-bloom-cream:var(--bloom-cream);
+  --color-bloom-pink:var(--bloom-pink);
+  --color-bloom-gray:var(--bloom-gray);
+   /* {
+					coral: '#FF6B6B',
+					sage: '#AED9B7',
+					cream: '#FFFDF7',
+					pink: '#F8E4DD',
+					gray: '#6B7280',
+					dark: '#374151'
+				} */
 }
 
 :root {
@@ -76,6 +89,11 @@
   --sidebar-ring: oklch(0.708 0 0);
   --background: oklch(0.99 0.0082 91.48);
   --foreground: oklch(0.145 0 0);
+  --bloom-coral:oklch(0.71 0.1812 22.84);
+  --bloom-sage:oklch(0.85 0.0651 151.09);
+  --bloom-cream:oklch(0.99 0.0082 91.48);
+  --bloom-pink:oklch(0.93 0.024 40.34);
+  --bloom-gray:oklch(0.55 0.0234 264.36);
 }
 
 .dark {

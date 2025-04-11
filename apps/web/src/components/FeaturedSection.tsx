@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { FC } from 'react';
 import { Product } from '@/types/product';
 import ProductGrid from './ProductGrid';
 import { Button } from '@/components/ui/button';
@@ -16,7 +16,7 @@ interface FeaturedSectionProps {
   bgColor?: string;
 }
 
-const FeaturedSection: React.FC<FeaturedSectionProps> = ({ 
+const FeaturedSection: FC<FeaturedSectionProps> = ({ 
   title, 
   subtitle, 
   products,
@@ -25,8 +25,8 @@ const FeaturedSection: React.FC<FeaturedSectionProps> = ({
   bgColor = "bg-white"
 }) => {
   return (
-    <section className={`section-padding ${bgColor}`}>
-      <div className="container mx-auto">
+    <section className={`section-padding py-20 ${bgColor}`}>
+      <div className="w-full max-w-6xl mx-auto">
         <ProductGrid 
           products={products} 
           title={title} 

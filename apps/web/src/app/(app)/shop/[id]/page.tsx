@@ -30,7 +30,8 @@ const ProductDetailPage = () => {
           <div className="text-center">
             <h1 className="text-2xl font-medium mb-4">Product Not Found</h1>
             <p className="text-bloom-gray mb-6">
-              The product you're looking for doesn't exist or has been removed.
+              The product you&apos;re looking for doesn&apos;t exist or has been
+              removed.
             </p>
             <Link href="/products">
               <Button className="btn-primary">Back to Shop</Button>
@@ -233,7 +234,7 @@ const ProductDetailPage = () => {
 
               {/* Features */}
               <div className="mb-8">
-                <h3 className="font-medium mb-3">What's Included:</h3>
+                <h3 className="font-medium mb-3">What&apos;s Included:</h3>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {product.features.map((feature, index) => (
                     <li key={index} className="flex items-start gap-2">

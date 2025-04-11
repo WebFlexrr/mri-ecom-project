@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -64,10 +64,10 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, imageUrl, title, 
   );
 };
 
-const CategorySection: React.FC = () => {
+const CategorySection = () => {
   return (
     <section className="section-padding bg-bloom-cream">
-      <div className="container mx-auto">
+      <div className="w-full max-w-6xl  mx-auto">
         <div className="text-center mb-10">
           <h2 className="text-2xl md:text-3xl font-medium mb-3">Shop by Category</h2>
           <p className="text-bloom-gray max-w-2xl mx-auto">

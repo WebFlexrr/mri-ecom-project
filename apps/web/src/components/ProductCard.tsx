@@ -1,13 +1,15 @@
-"use client"
+// "use client"
 import React from 'react';
 import { Product } from '@/types/product';
-import { Card, CardContent } from '@/components/ui/card';
-import { Heart } from 'lucide-react';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+// import { Heart } from 'lucide-react';
 
 import { formatCurrency } from '@/lib/formatters';
-import { useStore } from '@/store/useStore';
+// import { useStore } from '@/store/useStore';
 import Image from 'next/image';
 import Link from 'next/link';
+// import { Button } from './ui/button';
+import { Badge } from './ui/badge';
 
 
 interface ProductCardProps {
@@ -15,18 +17,18 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const { addToWishlist, removeFromWishlist, wishlist } = useStore();
+  // const { addToWishlist, removeFromWishlist, wishlist } = useStore();
   
-  const isInWishlist = wishlist.some(item => item.product.id === product.id);
+  // const isInWishlist = wishlist.some(item => item.product.id === product.id);
   
-  const handleWishlistToggle = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (isInWishlist) {
-      removeFromWishlist(product.id);
-    } else {
-      addToWishlist(product);
-    }
-  };
+  // const handleWishlistToggle = (e: React.MouseEvent) => {
+  //   e.preventDefault();
+  //   if (isInWishlist) {
+  //     removeFromWishlist(product.id);
+  //   } else {
+  //     addToWishlist(product);
+  //   }
+  // };
   
   const renderBadges = () => {
     if (!product.badges || product.badges.length === 0) return null;
@@ -34,9 +36,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     return (
       <div className="absolute top-3 left-3 flex flex-wrap gap-2">
         {product.badges.map((badge) => (
-          <span key={badge} className={`badge badge-${badge}`}>
+          <Badge key={badge} className={`badge badge-${badge}`}>
             {badge === 'bestseller' ? 'Best Seller' : badge === 'new' ? 'New' : 'Limited'}
-          </span>
+          </Badge>
         ))}
       </div>
     );
@@ -44,17 +46,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   
   return (
     <Link href={`/shop/${product.id}`}>
-      <Card className="product-card h-full transition-all hover:-translate-y-1 hover:shadow-md">
-        <div className="relative overflow-hidden rounded-t-lg">
+      <Card className="product-card h-full py-0 gap-0  rounded-none transition-all hover:-translate-y-1 hover:shadow-md">
+        <CardHeader className="relative px-0 overflow-hidden rounded-t-lg">
           <Image
             src={product.images[0]} 
             alt={product.name} 
             width={1000}
             height={0}
-            className="h-48 w-full object-cover transition-transform hover:scale-105" 
+            // className="h-48 w-full object-cover aspect-square transition-transform hover:scale-105" 
+            className=" w-full object-cover  aspect-square transition-transform hover:scale-105" 
           />
           {renderBadges()}
-          <button 
+          {/* <Button
             className="absolute right-3 top-3 rounded-full bg-white/80 p-1.5 transition-colors hover:bg-white hover:text-bloom-coral"
             onClick={handleWishlistToggle}
           >
@@ -62,12 +65,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               size={18} 
               className={isInWishlist ? "fill-bloom-coral text-bloom-coral" : ""} 
             />
-          </button>
-        </div>
+          </Button> */}
+        </CardHeader>
         
-        <CardContent className="p-4">
+        <CardContent className="p-4 ">
           <h3 className="mb-1 font-medium line-clamp-1">{product.name}</h3>
-          <p className="text-sm text-bloom-gray mb-2 line-clamp-1">{product.tagline}</p>
+          {/* <p className="text-sm text-bloom-gray mb-2 line-clamp-1">{product.tagline}</p> */}
           
           <div className="flex items-baseline justify-between">
             <div>

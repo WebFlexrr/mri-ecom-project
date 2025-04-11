@@ -446,6 +446,7 @@ export const getProductsByCategory = (category: string): Product[] => {
 };
 
 export const getProductsByPurpose = (purpose: string): Product[] => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return products.filter(product => product.purposes.includes(purpose as any));
 };
 

@@ -97,22 +97,32 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testimonial }
   );
 };
 
-const TestimonialsSection: React.FC = () => {
+const TestimonialsSection = () => {
   return (
-    <section className="section-padding bg-bloom-sage/10">
-      <div className="container mx-auto">
+    <section className="section-padding py-20 bg-bloom-sage/10 ">
+      <div className="w-full max-w-6xl mx-auto">
         <div className="text-center mb-10">
-          <h2 className="text-2xl md:text-3xl font-medium mb-3">Words from Our Community</h2>
+          <h2 className="text-2xl md:text-3xl font-medium mb-3">
+            Words from Our Community
+          </h2>
           <p className="text-bloom-gray max-w-2xl mx-auto">
             Discover how our products have become a part of daily rituals
           </p>
         </div>
-        
+
         <div className="relative px-8">
-          <Carousel>
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+          >
             <CarouselContent>
               {testimonials.map((testimonial) => (
-                <CarouselItem key={testimonial.id} className="basis-full md:basis-1/2 lg:basis-1/3 p-2">
+                <CarouselItem
+                  key={testimonial.id}
+                  className="basis-full md:basis-1/2 lg:basis-1/3 p-2"
+                >
                   <TestimonialCard testimonial={testimonial} />
                 </CarouselItem>
               ))}

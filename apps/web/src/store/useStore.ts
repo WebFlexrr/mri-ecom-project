@@ -86,7 +86,7 @@ export const useStore = create<StoreState>((set) => ({
       wishlist: state.wishlist.filter(item => item.product.id !== productId)
     })),
   
-  isInWishlist: (productId: string) => {
+  isInWishlist: () => {
     // This is a derived state, not stored in Zustand
     // It will be implemented in the component that uses it
     return false;
