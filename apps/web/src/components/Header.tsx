@@ -1,8 +1,8 @@
-
+"use client"
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Heart, ShoppingBag, Menu, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,21 +10,21 @@ const Header = () => {
   return (
     <header className="w-full py-4 px-4 md:px-8 bg-bloom-cream border-b border-bloom-pink/20">
       <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-xl md:text-2xl font-medium text-bloom-dark">
+        <Link href="/" className="text-xl md:text-2xl font-medium text-bloom-dark">
           Bloom & Build
         </Link>
         
         <nav className="hidden md:flex space-x-8 text-bloom-dark/80">
-          <Link to="/" className="hover:text-bloom-coral transition-colors">Home</Link>
-          <Link to="/products" className="hover:text-bloom-coral transition-colors">Shop</Link>
-          <Link to="/about" className="hover:text-bloom-coral transition-colors">About</Link>
+          <Link href="/" className="hover:text-bloom-coral transition-colors">Home</Link>
+          <Link href="/shop" className="hover:text-bloom-coral transition-colors">Shop</Link>
+          <Link href="/about" className="hover:text-bloom-coral transition-colors">About</Link>
         </nav>
         
         <div className="flex items-center space-x-4">
-          <Link to="/wishlist" className="text-bloom-dark/70 hover:text-bloom-coral transition-colors">
+          <Link href="/wishlist" className="text-bloom-dark/70 hover:text-bloom-coral transition-colors">
             <Heart size={20} />
           </Link>
-          <Link to="/cart" className="text-bloom-dark/70 hover:text-bloom-coral transition-colors">
+          <Link href="/cart" className="text-bloom-dark/70 hover:text-bloom-coral transition-colors">
             <ShoppingBag size={20} />
           </Link>
           
@@ -41,7 +41,7 @@ const Header = () => {
       {isMenuOpen && (
         <div className="fixed inset-0 bg-white z-50 flex flex-col p-8 animate-fade-in">
           <div className="flex justify-between items-center">
-            <Link to="/" className="text-xl font-medium text-bloom-dark">
+            <Link href="/" className="text-xl font-medium text-bloom-dark">
               Bloom & Build
             </Link>
             <button onClick={() => setIsMenuOpen(false)}>
@@ -50,19 +50,19 @@ const Header = () => {
           </div>
           
           <nav className="flex flex-col space-y-6 mt-12 text-lg">
-            <Link to="/" className="text-bloom-dark hover:text-bloom-coral" onClick={() => setIsMenuOpen(false)}>
+            <Link href="/" className="text-bloom-dark hover:text-bloom-coral" onClick={() => setIsMenuOpen(false)}>
               Home
             </Link>
-            <Link to="/products" className="text-bloom-dark hover:text-bloom-coral" onClick={() => setIsMenuOpen(false)}>
+            <Link href="/products" className="text-bloom-dark hover:text-bloom-coral" onClick={() => setIsMenuOpen(false)}>
               Shop
             </Link>
-            <Link to="/about" className="text-bloom-dark hover:text-bloom-coral" onClick={() => setIsMenuOpen(false)}>
+            <Link href="/about" className="text-bloom-dark hover:text-bloom-coral" onClick={() => setIsMenuOpen(false)}>
               About
             </Link>
-            <Link to="/wishlist" className="text-bloom-dark hover:text-bloom-coral" onClick={() => setIsMenuOpen(false)}>
+            <Link href="/wishlist" className="text-bloom-dark hover:text-bloom-coral" onClick={() => setIsMenuOpen(false)}>
               Wishlist
             </Link>
-            <Link to="/cart" className="text-bloom-dark hover:text-bloom-coral" onClick={() => setIsMenuOpen(false)}>
+            <Link href="/cart" className="text-bloom-dark hover:text-bloom-coral" onClick={() => setIsMenuOpen(false)}>
               Cart
             </Link>
           </nav>

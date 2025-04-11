@@ -2,7 +2,8 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+
 
 const HeroSection: React.FC = () => {
   return (
@@ -20,12 +21,12 @@ const HeroSection: React.FC = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center fade-in-element">
-            <Link to="/products">
+            <Link href="/products">
               <Button className="btn-primary w-full sm:w-auto">
                 Shop the Collection
               </Button>
             </Link>
-            <Link to="/about">
+            <Link href="/about">
               <Button variant="outline" className="btn-secondary w-full sm:w-auto">
                 Our Story
                 <ArrowRight size={16} className="ml-2" />

@@ -1,4 +1,4 @@
-
+"use client"
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,7 +26,7 @@ const NewsletterSection: React.FC = () => {
   };
 
   return (
-    <section className="py-20 px-4 bg-bloom-coral text-white text-center">
+    <section className="py-20 px-4 bg-primary text-white text-center">
       <div className="container mx-auto max-w-xl">
         <h2 className="text-2xl md:text-3xl font-medium mb-4">Join Our Community</h2>
         <p className="mb-8">

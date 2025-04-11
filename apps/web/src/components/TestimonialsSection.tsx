@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
 import { Star } from 'lucide-react';
+import Image from 'next/image';
 
 interface Testimonial {
   id: string;
@@ -56,21 +57,27 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testimonial }
       <CardContent className="p-6">
         <div className="flex items-center mb-4">
           {Array.from({ length: 5 }).map((_, i) => (
-            <Star 
-              key={i} 
-              size={16} 
-              className={i < testimonial.rating ? "fill-bloom-coral text-bloom-coral" : "text-bloom-gray/30"} 
+            <Star
+              key={i}
+              size={16}
+              className={
+                i < testimonial.rating
+                  ? "fill-bloom-coral text-bloom-coral"
+                  : "text-bloom-gray/30"
+              }
             />
           ))}
         </div>
-        
-        <p className="italic text-bloom-dark mb-4">"{testimonial.text}"</p>
-        
+
+        <p className="italic text-bloom-dark mb-4">
+          &quot;{testimonial.text}&quot;
+        </p>
+
         <div className="flex items-center mt-auto">
           {testimonial.image ? (
-            <img 
-              src={testimonial.image} 
-              alt={testimonial.name} 
+            <Image
+              src={testimonial.image}
+              alt={testimonial.name}
               className="w-10 h-10 rounded-full mr-3"
             />
           ) : (

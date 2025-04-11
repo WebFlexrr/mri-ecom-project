@@ -1,11 +1,14 @@
-
+"use client"
 import React from 'react';
 import { Product } from '@/types/product';
 import { Card, CardContent } from '@/components/ui/card';
 import { Heart } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useStore } from '@/store/useStore';
+
 import { formatCurrency } from '@/lib/formatters';
+import { useStore } from '@/store/useStore';
+import Image from 'next/image';
+import Link from 'next/link';
+
 
 interface ProductCardProps {
   product: Product;
@@ -40,12 +43,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
   
   return (
-    <Link to={`/product/${product.id}`}>
+    <Link href={`/shop/${product.id}`}>
       <Card className="product-card h-full transition-all hover:-translate-y-1 hover:shadow-md">
         <div className="relative overflow-hidden rounded-t-lg">
-          <img 
+          <Image
             src={product.images[0]} 
             alt={product.name} 
+            width={1000}
+            height={0}
             className="h-48 w-full object-cover transition-transform hover:scale-105" 
           />
           {renderBadges()}
