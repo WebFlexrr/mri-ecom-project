@@ -1,19 +1,19 @@
-import CategorySection from "@/components/CategorySection";
-import FeaturedSection from "@/components/FeaturedSection";
+// import CategorySection from "@/components/CategorySection";
+// import FeaturedSection from "@/components/FeaturedSection";
 // import FaqSection from "@/components/FaqSection";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 // import HeroSection from "@/components/HeroSection";
 import NewsletterSection from "@/components/NewsletterSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import { getFeaturedProducts,  } from "@/data/products";
+// import TestimonialsSection from "@/components/TestimonialsSection";
+// import { getFeaturedProducts,  } from "@/data/products";
 // import { getFeaturedProducts, getNewArrivals } from "@/data/products";
 
 import  ComboCard  from "@/components/ui/ComboCard";
 
 export default async function Home() {
-  const featuredProducts = getFeaturedProducts();
+  // const featuredProducts = getFeaturedProducts();
   // const newArrivals = getNewArrivals();
   return (
     <div className="min-h-screen flex flex-col">
@@ -23,10 +23,10 @@ export default async function Home() {
         <Hero />
         {/* <HeroSection /> */}
 
-        <CategorySection />
+        {/* <CategorySection /> */}
         <ComboCard />
 
-        <FeaturedSection
+        {/* <FeaturedSection
           title="Customer Favorites"
           subtitle="Our most loved products that have become part of daily rituals"
           products={featuredProducts.slice(0, 4)}
@@ -43,7 +43,7 @@ export default async function Home() {
           bgColor="bg-white"
         />
 
-        <TestimonialsSection />
+        <TestimonialsSection /> */}
 
         {/* <FeaturedSection
           title="Just Arrived"

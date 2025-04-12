@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,7 +15,21 @@ const Header = () => {
             href="/"
             className="text-xl md:text-2xl font-medium text-bloom-dark "
           >
-            Bloom & Build
+
+          </Link>
+          <Link href={"/"} className="flex w-fit items-center gap-3">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-black">
+              <Image
+                src={"/logos/white-logo.png"}
+                width={21}
+                height={21}
+                alt={"Webflexrr Labs."}
+                className="invert"
+              />
+            </div>
+            <div className=" font-bold  md:text-lg">
+              Webflexrr Shops
+            </div>
           </Link>
         </section>
         <section className="w-full flex items-center justify-center ">
@@ -27,6 +42,12 @@ const Header = () => {
               className="hover:text-bloom-coral transition-colors"
             >
               Shop
+            </Link>
+            <Link
+              href="/contact"
+              className="hover:text-bloom-coral transition-colors"
+            >
+              Contact
             </Link>
             {/* <Link href="/about" className="hover:text-bloom-coral transition-colors">About</Link> */}
           </nav>

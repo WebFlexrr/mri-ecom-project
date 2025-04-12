@@ -45,8 +45,8 @@ const CartPage = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
 
-      <main className="flex-grow section-padding">
-        <div className="container mx-auto max-w-6xl">
+      <main className="flex-grow py-20">
+        <div className="w-full mx-auto max-w-6xl">
           <h1 className="text-3xl font-medium mb-6">Your Cart</h1>
 
           {cart.length > 0 ? (
