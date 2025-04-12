@@ -92,6 +92,15 @@ export type Products = {
     _key: string
   }>
   description?: string
+  material?: string
+  additionalInfo?: string
+  size?: Array<string>
+  colors?: Array<{
+    color?: Color
+    name?: string
+    _type: 'Color Parameter'
+    _key: string
+  }>
   features?: Array<string>
   benefits?: Array<string>
   category?: string
@@ -117,6 +126,39 @@ export type Order = {
   email?: string
   message?: string
   createdAt?: string
+}
+
+export type Color = {
+  _type: 'color'
+  hex?: string
+  alpha?: number
+  hsl?: HslaColor
+  hsv?: HsvaColor
+  rgb?: RgbaColor
+}
+
+export type RgbaColor = {
+  _type: 'rgbaColor'
+  r?: number
+  g?: number
+  b?: number
+  a?: number
+}
+
+export type HsvaColor = {
+  _type: 'hsvaColor'
+  h?: number
+  s?: number
+  v?: number
+  a?: number
+}
+
+export type HslaColor = {
+  _type: 'hslaColor'
+  h?: number
+  s?: number
+  l?: number
+  a?: number
 }
 
 export type MetaTag = {
@@ -268,6 +310,10 @@ export type AllSanitySchemaTypes =
   | Products
   | Slug
   | Order
+  | Color
+  | RgbaColor
+  | HsvaColor
+  | HslaColor
   | MetaTag
   | MetaAttribute
   | SeoMetaFields

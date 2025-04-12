@@ -3,25 +3,61 @@
 import { client } from "@/sanity/lib/client";
 
 export const purchaseOrderActions = async ({
-	message,
+
 	fullName,
+	
 	email,
+      firstName,
+      lastName,
+      address,
+      city,
+      state,
+      zipCode,
+    subtotal,
+    shipping,
+
+    total,
 }: {
 	message?: string | undefined;
 	fullName: string;
-	email: string;
+	 email:string,
+      firstName:string,
+      lastName:string,
+      address:string,
+      city:string,
+      state:string,
+      zipCode:string,
+    subtotal:string,
+    shipping:string,
+
+    total:number,
+    
+    
+      
+ 
+
 }) => {
-	console.log({
-		message,
-		fullName,
-		email,
-	});
+	// console.log({
+	// 	message,
+	// 	fullName,
+	// 	email,
+	// });
 
 	const queryDoc = {
-		_type: "enquiry",
-		name: fullName,
+		_type: "order",
 		email,
-		message,
+      fullName,
+	 
+      firstName,
+      lastName,
+      address,
+      city,
+      state,
+      zipCode,
+    subtotal,
+    shipping,
+
+    total,
 		createdAt: new Date().toISOString(),
 	};
 

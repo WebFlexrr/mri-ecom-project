@@ -32,7 +32,7 @@ stock,
 }`);
 
 export const SINGLE_PROJECT_QUERY = (slug: string) =>
-	defineQuery(`*[_type=="project" && slug.current == "${slug}"][0]{
+	defineQuery(`*[_type=="products" && slug.current == "${slug}"][0]{
   _rev,
 colors,
 size,
@@ -40,6 +40,9 @@ _type,
 _createdAt,
 tagline,
 seo,
+description,
+material,
+additionalInfo,
 slug,
 images,
 price,

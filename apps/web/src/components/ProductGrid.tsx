@@ -1,10 +1,12 @@
 
 import React from 'react';
-import { Product } from '@/types/product';
+
 import ProductCard from './ProductCard';
+import { Products } from '@/types/sanity';
+
 
 interface ProductGridProps {
-  products: Product[];
+  products: Products[];
   title?: string;
   subtitle?: string;
 }
@@ -19,9 +21,9 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, title, subtitle }) 
         </div>
       )}
       
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 px-7 gap-6">
         {products.map((product) => (
-          <div key={product.id} className="h-full">
+          <div key={product._id} className="h-full">
             <ProductCard product={product} />
           </div>
         ))}

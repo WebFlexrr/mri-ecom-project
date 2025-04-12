@@ -79,8 +79,29 @@ const Checkout = () => {
     }
   };
 
+  const storeFormValues = () => {
+    const formData = {
+      email,
+      firstName,
+      lastName,
+      address,
+      city,
+      state,
+      zipCode,
+      cardNumber,
+      expiryDate,
+      cvv,
+      nameOnCard,
+    };
+    // Here you can send formData to your backend
+    console.log('Form Data:', formData);
+  };
+
   const handleCompletePurchase = () => {
     setIsCompleting(true);
+    storeFormValues();
+
+  
 
     // Simulate processing with a loading screen
     setTimeout(() => {

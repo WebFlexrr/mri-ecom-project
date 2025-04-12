@@ -1,6 +1,7 @@
 "use server";
 
 
+import { Products } from "@/types/sanity";
 import { sanityFetch } from "../lib/client";
 import {
 
@@ -8,14 +9,14 @@ import {
 	
 	SINGLE_PROJECT_QUERY,
 } from "./queries";
-import { Product } from "@/types/product";
+
 
 //Projects
 export const getProducts = async () =>
-	await sanityFetch<Product[]>({ query: PRODUCTS_QUERY });
+	await sanityFetch<Products[]>({ query: PRODUCTS_QUERY });
 
 export const getProductDetails = async (slug: string) =>
-	await sanityFetch<Product>({ query: SINGLE_PROJECT_QUERY(slug) });
+	await sanityFetch<Products>({ query: SINGLE_PROJECT_QUERY(slug) });
 
 //Blogs
 // export const getBlogs = async () =>

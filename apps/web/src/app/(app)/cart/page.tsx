@@ -9,10 +9,12 @@ import { toast } from "sonner";
 import Image from "next/image";
 import Link from "next/link";
 import { useCartStore } from '@/store/cartStore';
+import { useStore } from "@/store/useStore";
+
 
 
 const CartPage = () => {
-  const { cart, updateQuantity, removeFromCart } = useCartStore();
+  const { cart, updateQuantity, removeFromCart } = useStore();
 
   const handleUpdateQuantity = (productId: string, newQuantity: number) => {
     if (newQuantity < 1) {
@@ -28,7 +30,7 @@ const CartPage = () => {
 
   const calculateSubtotal = () => {
     return cart.reduce((total, item) => {
-      const product = getProductById(item.productId);
+      const product = getProductById(item.product._id);
       if (product) {
         const price = product.discountPrice || product.price;
         return total + price * item.quantity;
@@ -45,7 +47,7 @@ const CartPage = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
 
-      <main className="flex-grow py-20">
+      <main className=" py-20">
         <div className="w-full mx-auto max-w-6xl">
           <h1 className="text-3xl font-medium mb-6">Your Cart</h1>
 
@@ -55,12 +57,12 @@ const CartPage = () => {
               <div className="lg:w-2/3">
                 <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
                   {cart.map((item) => {
-                    const product = getProductById(item.productId);
+                    const product = getProductById(item.product._id);
                     if (!product) return null;
 
                     return (
                       <div
-                        key={item.productId}
+                        key={item.product._id}
                         className="flex border-b border-bloom-pink/20 py-6 last:border-0 last:pb-0 first:pt-0"
                       >
                         <div className="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
@@ -149,7 +151,7 @@ const CartPage = () => {
                 </div>
 
                 <Link
-                  href="/products"
+                  href="/shop"
                   className="text-bloom-coral hover:underline flex items-center"
                 >
                   <ShoppingBag size={16} className="mr-1" />
