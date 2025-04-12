@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect } from 'react';
+import React, { useState,  } from 'react';
 // import Layout from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -90,13 +90,13 @@ const Checkout = () => {
   const { cart } = useCartStore();
   const { product: buyNowProduct } = useBuyNowStore();
 
-  useEffect(() => {
-    // If cart and buyNowProduct are both empty, redirect to cart page
-    if (cart.length === 0 && !buyNowProduct) {
-      router.push('/cart');
-      toast.error("Your cart is empty");
-    }
-  }, [cart, buyNowProduct, router]);
+  // useEffect(() => {
+  //   // If cart and buyNowProduct are both empty, redirect to cart page
+  //   if (cart.length === 0 && !buyNowProduct) {
+  //     router.push('/cart');
+  //     toast.error("Your cart is empty");
+  //   }
+  // }, [cart, buyNowProduct, router]);
 
   const calculateSubtotal = (): number => {
     if (buyNowProduct) {
@@ -130,7 +130,7 @@ const Checkout = () => {
     handleCompletePurchase(data);
   };
 
-  const handleCompletePurchase = (data: FormData) => {
+  const handleCompletePurchase = async (data: FormData) => {
     setIsCompleting(true);
 
     purchaseOrderActions({

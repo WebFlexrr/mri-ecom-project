@@ -10,8 +10,8 @@ import { Products } from "@/types/sanity";
 
 interface ShopPageProps{
     products:Products[]
-
 }
+
 const ShopPage: FC<ShopPageProps> = async ({products}) => {
     // const params = useParams<{ category: string; purpose: string }>();
     // const router = useRouter();

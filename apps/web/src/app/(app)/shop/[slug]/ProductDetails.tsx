@@ -18,9 +18,10 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 // import { Product } from "@/types/product";
 import { useRouter } from "next/navigation";
 // import { useStore } from "@/store/useStore";
-import { imageUrlFor } from "@/sanity/config/SanityImageUrl";
+
 import { useBuyNowStore } from '@/store/buyNowStore';
 import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
 
 
 
@@ -110,7 +111,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                             {product.images && product.images.length > 0 && (
                                 <div className="mb-4 rounded-xl overflow-hidden">
                                     <Image
-                                        src={"/"}
+                                        src={product.images[selectedImage]}
                                         alt={product.name || ""}
                                         width={400}
                                         height={0}
@@ -131,7 +132,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                                         title={`View image ${index + 1}`}
                                     >
                                         <Image
-                                            src={imageUrlFor(image).url()}
+                                            src={image}
                                             width={400}
                                             height={0}
                                             alt={`${product.name} view ${index + 1}`}
@@ -163,13 +164,75 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                             <h1 className="text-3xl font-medium mb-2">{product.name}</h1>
                             <p className="text-xl text-bloom-gray mb-6">{product.tagline}</p>
                             <Image
-                                src="/size-chart.jpg"
+                                src="/size-charts.jpg"
                                 alt="Size Chart"
-                                width={400}
-                                height={400}
+                                width={100}
+                                height={0}
                                 className="w-full h-auto object-cover"
                             />
 
+                            {/* Size */}
+                            <div className="my-6 flex flex-col gap-3 ">
+                                <div className="text-xl ">
+                                    Sizes
+
+                                </div>
+                                <div className="flex  gap-3">
+
+                                {product.size && product.size.map((size)=><Badge key={size} className="text-xl px-10">{size.toUpperCase()}</Badge>)
+                                    // <span className="text-2xl font-medium">
+                                    //     ₹{product.price?.toFixed(2)}
+                                    // </span>
+                                }
+                                </div>
+                                {/* {product.discountPrice ? (
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-2xl font-medium">
+                                            ${product.discountPrice?.toFixed(2)}
+                                        </span>
+                                        <span className="text-bloom-gray line-through">
+                                            ${product.price?.toFixed(2)}
+                                        </span>
+                                    </div>
+                                ) : (
+                                    <span className="text-2xl font-medium">
+                                        ${product.price?.toFixed(2)}
+                                    </span>
+                                )} */}
+                            </div>
+                            {/* Size */}
+                            <div className="my-6 flex flex-col gap-3 ">
+                                <div className="text-xl ">
+                                    Color
+
+                                </div>
+                                <div className="flex  gap-3">
+
+                                    {product.colors && product.colors.map((color) => <div key={color._key} className={`text-xl p-1 rounded-full border border-black flex items-center justify-center  w-7 h-7 bg-[${color.color?.hex}]`}>
+
+                                    <div className={`text-xl border rounded-full border-black  w-5 h-5 bg-[${color.color?.hex}]`}></div>
+                                </div>
+                            )
+                                    // <span className="text-2xl font-medium">
+                                    //     ₹{product.price?.toFixed(2)}
+                                    // </span>
+                                }
+                                </div>
+                                {/* {product.discountPrice ? (
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-2xl font-medium">
+                                            ${product.discountPrice?.toFixed(2)}
+                                        </span>
+                                        <span className="text-bloom-gray line-through">
+                                            ${product.price?.toFixed(2)}
+                                        </span>
+                                    </div>
+                                ) : (
+                                    <span className="text-2xl font-medium">
+                                        ${product.price?.toFixed(2)}
+                                    </span>
+                                )} */}
+                            </div>
                             {/* Price */}
                             <div className="mb-6">
                                 {product.price &&

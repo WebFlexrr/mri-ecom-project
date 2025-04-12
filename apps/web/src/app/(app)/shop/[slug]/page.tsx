@@ -15,10 +15,10 @@ const ProductDetailsPage = async ({
 
   return (
     <div>
-      <ProductDetails productDetails={{
-        ...productDetails,
+      <ProductDetails productDetails={
+        productDetails
         // images: productDetails.images ? productDetails.images.map(image => imageUrlFor(image).url()) : []
-      }} />
+      } />
     </div>
   )
 }
