@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { ShoppingBag, Menu, X } from "lucide-react";
+import {  Menu, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -43,12 +43,12 @@ const Header = () => {
             >
               Shop
             </Link>
-            <Link
+            {/* <Link
               href="/contact"
               className="hover:text-bloom-coral transition-colors"
             >
               Contact
-            </Link>
+            </Link> */}
             {/* <Link href="/about" className="hover:text-bloom-coral transition-colors">About</Link> */}
           </nav>
         </section>
@@ -57,12 +57,12 @@ const Header = () => {
             {/* <Link href="/wishlist" className="text-bloom-dark/70 hover:text-bloom-coral transition-colors">
             <Heart size={20} />
             </Link> */}
-            <Link
+            {/* <Link
               href="/cart"
               className="text-bloom-dark/70 hover:text-bloom-coral transition-colors"
             >
               <ShoppingBag size={20} />
-            </Link>
+            </Link> */}
 
             <button
               className="md:hidden text-bloom-dark/70"

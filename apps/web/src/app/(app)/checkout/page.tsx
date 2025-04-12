@@ -7,13 +7,20 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 
 // import { useAppStore } from '@/store';
-import { getProductById } from '@/data/products';
+// import { getProductById } from '@/data/products';
 import { ChevronRight, CheckCircle2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/store/cartStore';
 import Link from 'next/link';
 import Header from '@/components/Header';
+import { useBuyNowStore } from '@/store/buyNowStore';
+import { purchaseOrderActions } from '@/lib/server/purchaseOrder';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
+import { Products } from '@/types/sanity';
 
 // Update CartItem type to include color and size
 export interface CartItem {
@@ -23,6 +30,36 @@ export interface CartItem {
   size?: string;
 }
 
+// Define a Zod schema for form validation
+const schema = z.object({
+  email: z.string().email({ message: 'Invalid email address' }),
+  firstName: z.string().min(1, { message: 'First name is required' }),
+  lastName: z.string().min(1, { message: 'Last name is required' }),
+  address: z.string().min(1, { message: 'Address is required' }),
+  city: z.string().min(1, { message: 'City is required' }),
+  state: z.string().min(1, { message: 'State is required' }),
+  zipCode: z.string().min(5, { message: 'ZIP Code is required' }),
+  cardNumber: z.string().optional(),
+  expiryDate: z.string().optional(),
+  cvv: z.string().optional(),
+  nameOnCard: z.string().optional(),
+});
+
+// Define a TypeScript interface for form data
+interface FormData {
+  email: string;
+  firstName: string;
+  lastName: string;
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  cardNumber?: string;
+  expiryDate?: string;
+  cvv?: string;
+  nameOnCard?: string;
+  upi?: string;
+}
 
 const Checkout = () => {
   // Checkout steps
@@ -32,32 +69,41 @@ const Checkout = () => {
   // const navigate = useNavigate();
   const router = useRouter()
 
-  // Form state
-  const [email, setEmail] = useState("user@example.com");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [zipCode, setZipCode] = useState("");
-  const [cardNumber, setCardNumber] = useState("");
-  const [expiryDate, setExpiryDate] = useState("");
-  const [cvv, setCvv] = useState("");
-  const [nameOnCard, setNameOnCard] = useState("");
+  const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      email: 'user@example.com',
+      firstName: '',
+      lastName: '',
+      address: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      cardNumber: '',
+      expiryDate: '',
+      cvv: '',
+      nameOnCard: '',
+      upi: '',
+    },
+  });
 
   const { cart } = useCartStore();
+  const { product: buyNowProduct } = useBuyNowStore();
 
   useEffect(() => {
-    // If cart is empty, redirect to cart page
-    if (cart.length === 0) {
+    // If cart and buyNowProduct are both empty, redirect to cart page
+    if (cart.length === 0 && !buyNowProduct) {
       router.push('/cart');
       toast.error("Your cart is empty");
     }
-  }, [cart, router]);
+  }, [cart, buyNowProduct, router]);
 
   const calculateSubtotal = (): number => {
+    if (buyNowProduct) {
+      return buyNowProduct.price || 0;
+    }
     return cart.reduce((total, item) => {
-      const product = getProductById(item.productId);
+      const product = {} as Products
       return total + (product?.price || 0) * item.quantity;
     }, 0);
   };
@@ -79,29 +125,26 @@ const Checkout = () => {
     }
   };
 
-  const storeFormValues = () => {
-    const formData = {
-      email,
-      firstName,
-      lastName,
-      address,
-      city,
-      state,
-      zipCode,
-      cardNumber,
-      expiryDate,
-      cvv,
-      nameOnCard,
-    };
-    // Here you can send formData to your backend
-    console.log('Form Data:', formData);
+  const onSubmit = (data: FormData) => {
+    console.log('Form Data:', data);
+    handleCompletePurchase(data);
   };
 
-  const handleCompletePurchase = () => {
+  const handleCompletePurchase = (data: FormData) => {
     setIsCompleting(true);
-    storeFormValues();
 
-  
+    purchaseOrderActions({
+      email: data.email,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      address: data.address,
+      city: data.city,
+      state: data.state,
+      zipCode: data.zipCode,
+      subtotal,
+      shipping,
+      total,
+    });
 
     // Simulate processing with a loading screen
     setTimeout(() => {
@@ -151,7 +194,7 @@ const Checkout = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
             {/* Information Step */}
             {currentStep === 0 && (
@@ -162,12 +205,14 @@ const Checkout = () => {
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="your@email.com"
+                    <Controller
+                      name="email"
+                      control={control}
+                      render={({ field }) => (
+                        <Input {...field} placeholder="your@email.com" />
+                      )}
                     />
+                    {errors.email && <p className="text-red-500">{errors.email.message}</p>}
                   </div>
 
                   <div className="flex items-center space-x-2 text-sm">
@@ -180,71 +225,77 @@ const Checkout = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="firstName">First Name</Label>
-                        <Input
-                          id="firstName"
-                          value={firstName}
-                          onChange={(e) => setFirstName(e.target.value)}
-                          placeholder="John"
-                          title="First Name"
+                        <Controller
+                          name="firstName"
+                          control={control}
+                          render={({ field }) => (
+                            <Input {...field} placeholder="John" />
+                          )}
                         />
+                        {errors.firstName && <p className="text-red-500">{errors.firstName.message}</p>}
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="lastName">Last Name</Label>
-                        <Input
-                          id="lastName"
-                          value={lastName}
-                          onChange={(e) => setLastName(e.target.value)}
-                          placeholder="Doe"
-                          title="Last Name"
+                        <Controller
+                          name="lastName"
+                          control={control}
+                          render={({ field }) => (
+                            <Input {...field} placeholder="Doe" />
+                          )}
                         />
+                        {errors.lastName && <p className="text-red-500">{errors.lastName.message}</p>}
                       </div>
                     </div>
                     <div className="space-y-2 mt-4">
                       <Label htmlFor="address">Address</Label>
-                      <Input
-                        id="address"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        placeholder="123 Main St"
-                        title="Address"
+                      <Controller
+                        name="address"
+                        control={control}
+                        render={({ field }) => (
+                          <Input {...field} placeholder="123 Main St" />
+                        )}
                       />
+                      {errors.address && <p className="text-red-500">{errors.address.message}</p>}
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                       <div className="space-y-2">
                         <Label htmlFor="city">City</Label>
-                        <Input
-                          id="city"
-                          value={city}
-                          onChange={(e) => setCity(e.target.value)}
-                          placeholder="San Francisco"
-                          title="City"
+                        <Controller
+                          name="city"
+                          control={control}
+                          render={({ field }) => (
+                            <Input {...field} placeholder="San Francisco" />
+                          )}
                         />
+                        {errors.city && <p className="text-red-500">{errors.city.message}</p>}
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="state">State</Label>
-                        <Input
-                          id="state"
-                          value={state}
-                          onChange={(e) => setState(e.target.value)}
-                          placeholder="California"
-                          title="State"
+                        <Controller
+                          name="state"
+                          control={control}
+                          render={({ field }) => (
+                            <Input {...field} placeholder="California" />
+                          )}
                         />
+                        {errors.state && <p className="text-red-500">{errors.state.message}</p>}
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="zip">ZIP Code</Label>
-                        <Input
-                          id="zip"
-                          value={zipCode}
-                          onChange={(e) => setZipCode(e.target.value)}
-                          placeholder="94103"
-                          title="ZIP Code"
+                        <Controller
+                          name="zipCode"
+                          control={control}
+                          render={({ field }) => (
+                            <Input {...field} placeholder="94103" />
+                          )}
                         />
+                        {errors.zipCode && <p className="text-red-500">{errors.zipCode.message}</p>}
                       </div>
                     </div>
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-end">
-                  <Button onClick={handleNextStep} className="bg-primary-600 hover:bg-primary-700">
+                  <Button onClick={handleNextStep} className=" hover:bg-primary-700">
                     Continue to Shipping
                     <ChevronRight className="ml-2" size={16} />
                   </Button>
@@ -277,45 +328,13 @@ const Checkout = () => {
                       </div>
                       <span>Free</span>
                     </div>
-                    <div className="flex items-center justify-between border rounded-md p-4">
-                      <div className="flex items-center">
-                        <input
-                          type="radio"
-                          id="shipping-express"
-                          name="shipping-method"
-                          className="mr-3"
-                          title="Express Shipping"
-                        />
-                        <div>
-                          <Label htmlFor="shipping-express" className="font-medium">Express Shipping</Label>
-                          <p className="text-sm text-gray-500">Delivery in 1-2 business days</p>
-                        </div>
-                      </div>
-                      <span>$12.99</span>
-                    </div>
-                    <div className="flex items-center justify-between border rounded-md p-4">
-                      <div className="flex items-center">
-                        <input
-                          type="radio"
-                          id="shipping-nextday"
-                          name="shipping-method"
-                          className="mr-3"
-                          title="Next Day Delivery"
-                        />
-                        <div>
-                          <Label htmlFor="shipping-nextday" className="font-medium">Next Day Delivery</Label>
-                          <p className="text-sm text-gray-500">Order by 2pm for delivery tomorrow</p>
-                        </div>
-                      </div>
-                      <span>$24.99</span>
-                    </div>
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-between">
                   <Button variant="outline" onClick={handlePreviousStep}>
                     Back to Information
                   </Button>
-                  <Button onClick={handleNextStep} className="bg-primary-600 hover:bg-primary-700">
+                  <Button onClick={handleNextStep} className=" hover:bg-primary-700">
                     Continue to Payment
                     <ChevronRight className="ml-2" size={16} />
                   </Button>
@@ -330,62 +349,17 @@ const Checkout = () => {
                   <CardTitle>Payment Method</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="cardNumber">Card Number</Label>
-                    <Input
-                      id="cardNumber"
-                      value={cardNumber}
-                      onChange={(e) => setCardNumber(e.target.value)}
-                      placeholder="1234 5678 9012 3456"
-                      title="Card Number"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="expiryDate">Expiry Date</Label>
-                    <Input
-                      id="expiryDate"
-                      value={expiryDate}
-                      onChange={(e) => setExpiryDate(e.target.value)}
-                      placeholder="MM/YY"
-                      title="Expiry Date"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="cvv">CVV</Label>
-                    <Input
-                      id="cvv"
-                      value={cvv}
-                      onChange={(e) => setCvv(e.target.value)}
-                      placeholder="123"
-                      title="CVV"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="nameOnCard">Name on Card</Label>
-                    <Input
-                      id="nameOnCard"
-                      value={nameOnCard}
-                      onChange={(e) => setNameOnCard(e.target.value)}
-                      placeholder="John Doe"
-                      title="Name on Card"
-                    />
-                  </div>
-                  <div className="flex items-center space-x-2 text-sm mt-4">
-                    <input type="checkbox" id="saveCard" className="rounded border-gray-300" title="Save card for future purchases" />
-                    <Label htmlFor="saveCard">Save this card for future purchases</Label>
-                  </div>
-
-                  {/* UPI Payment */}
                   <div className="space-y-2 mt-4">
                     <Label htmlFor="upi">UPI ID</Label>
-                    <Input
-                      id="upi"
-                      placeholder="example@upi"
-                      title="UPI ID"
+                    <Controller<FormData>
+                      name="upi"
+                      control={control}
+                      render={({ field }) => (
+                        <Input {...field} placeholder="example@upi" />
+                      )}
                     />
                   </div>
 
-                  {/* Cash on Delivery */}
                   <div className="flex items-center space-x-2 mt-4">
                     <input type="checkbox" id="cod" className="rounded border-gray-300" title="Cash on Delivery" />
                     <Label htmlFor="cod">Cash on Delivery</Label>
@@ -396,9 +370,8 @@ const Checkout = () => {
                     Back to Shipping
                   </Button>
                   <Button
-                    onClick={handleCompletePurchase}
-                    className="bg-primary-600 hover:bg-primary-700"
-
+                    type="submit"
+                    className=""
                   >
                     {isCompleting ? "Processing..." : "Complete Purchase"}
                   </Button>
@@ -406,7 +379,6 @@ const Checkout = () => {
               </Card>
             )}
           </div>
-
           <div>
             <Card>
               <CardHeader>
@@ -420,17 +392,19 @@ const Checkout = () => {
               <CardContent className="space-y-4">
                 <div className="max-h-60 overflow-auto space-y-3">
                   {cart.map((item) => {
-                    const product = getProductById(item.productId);
+                    const product = {}as Products;
                     if (!product) return null;
 
                     return (
                       <div key={item.productId} className="flex items-center gap-4">
                         <div className="w-16 h-16 bg-gray-100 rounded overflow-hidden flex-shrink-0">
-                          <img
-                            src={product.images[0]}
-                            alt={product.name}
+                          {/* <Image
+                            src={product.images[0]! || ""}
+                            alt={product.name || ""}
+                            width={1000}
+                            height={0}
                             className="w-full h-full object-cover"
-                          />
+                          /> */}
                         </div>
                         <div className="flex-1">
                           <p className="font-medium line-clamp-1">{product.name}</p>
@@ -440,7 +414,7 @@ const Checkout = () => {
                         </div>
                         <div className="text-right">
                           <p className="font-medium">
-                            ${(product.price * item.quantity).toFixed(2)}
+                            ${(product.price! * item.quantity).toFixed(2)}
                           </p>
                         </div>
                       </div>
@@ -483,7 +457,7 @@ const Checkout = () => {
               </CardContent>
             </Card>
           </div>
-        </div>
+        </form>
 
         <div className="flex justify-center items-center h-screen">
           {isCompleting && (

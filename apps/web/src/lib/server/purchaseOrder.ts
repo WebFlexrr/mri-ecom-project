@@ -4,7 +4,7 @@ import { client } from "@/sanity/lib/client";
 
 export const purchaseOrderActions = async ({
 
-	fullName,
+
 	
 	email,
       firstName,
@@ -19,7 +19,7 @@ export const purchaseOrderActions = async ({
     total,
 }: {
 	message?: string | undefined;
-	fullName: string;
+	
 	 email:string,
       firstName:string,
       lastName:string,
@@ -27,8 +27,8 @@ export const purchaseOrderActions = async ({
       city:string,
       state:string,
       zipCode:string,
-    subtotal:string,
-    shipping:string,
+    subtotal:number,
+    shipping:number,
 
     total:number,
     
@@ -46,8 +46,6 @@ export const purchaseOrderActions = async ({
 	const queryDoc = {
 		_type: "order",
 		email,
-      fullName,
-	 
       firstName,
       lastName,
       address,

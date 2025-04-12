@@ -1,7 +1,7 @@
 import React from 'react'
 import ProductDetails from './ProductDetails'
 import { getProductDetails } from '@/sanity/actions/queryActions'
-import { imageUrlFor } from '@/sanity/config/SanityImageUrl'
+// import { imageUrlFor } from '@/sanity/config/SanityImageUrl'
 
 
 const ProductDetailsPage = async ({
@@ -17,7 +17,7 @@ const ProductDetailsPage = async ({
     <div>
       <ProductDetails productDetails={{
         ...productDetails,
-        images: productDetails.images ? productDetails.images.map(image => imageUrlFor(image).url()) : []
+        // images: productDetails.images ? productDetails.images.map(image => imageUrlFor(image).url()) : []
       }} />
     </div>
   )

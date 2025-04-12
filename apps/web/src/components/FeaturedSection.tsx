@@ -1,18 +1,19 @@
 
 import React from 'react';
-import { Product } from '@/types/product';
+
 import ProductGrid from './ProductGrid';
 
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from './ui/button';
+import { Products } from '@/types/sanity';
 
 
 
 interface FeaturedSectionProps {
   title: string;
   subtitle?: string;
-  products: Product[];
+  products: Products[];
   linkTo?: string;
   linkText?: string;
   bgColor?: string;

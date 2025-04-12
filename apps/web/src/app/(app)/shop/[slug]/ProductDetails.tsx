@@ -8,8 +8,7 @@ import { Heart, } from "lucide-react";
 // import ProductGrid from "@/components/ProductGrid";
 // import { useParams } from "next/navigation";
 // import Link from "next/link";
-import Image from "next/image";
-import { useCartStore } from '@/store/cartStore';
+
 import { toast } from "sonner";
 import { Products } from '@/types/sanity';
 // import { imageUrlFor } from "@/sanity/config/SanityImageUrl";
@@ -18,12 +17,15 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 // import { urlFor } from '@/sanity/imageBuilder';
 // import { Product } from "@/types/product";
 import { useRouter } from "next/navigation";
-import { useStore } from "@/store/useStore";
+// import { useStore } from "@/store/useStore";
 import { imageUrlFor } from "@/sanity/config/SanityImageUrl";
+import { useBuyNowStore } from '@/store/buyNowStore';
+import Image from "next/image";
+
 
 
 interface ProductDetailsProps {
-    productDetails: Products;
+    productDetails: Products
 }
 const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
     // const { id } = useParams<{ id: string }>();
@@ -31,13 +33,14 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
 
     // console.log("Params==>", params)
     const [selectedImage, setSelectedImage] = useState(0);
-    const [quantity, setQuantity] = useState(1);
+    // const [quantity, setQuantity] = useState(1);
 
     // const product = params.id ? getProductById(params.id) : undefined;
     const product = productDetails;
     // const relatedProducts = params.id ? getRelatedProducts(params.id) : [];
 
-    const { addToCart } = useStore();
+    // const { addToCart } = useStore();
+    const { setProduct } = useBuyNowStore();
     const router = useRouter();
 
     // if (!product) {
@@ -61,39 +64,39 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
     //     );
     // }
 
-    const handleAddToCart = () => {
-        if (product) {
-            addToCart(product, quantity);
-            toast.success(`${product.name || 'Product'} added to your cart`);
-        } else {
-            toast.error('Failed to add product to cart');
-        }
-    };
+    // const handleAddToCart = () => {
+    //     if (product) {
+    //         addToCart(product, quantity);
+    //         toast.success(`${product.name || 'Product'} added to your cart`);
+    //     } else {
+    //         toast.error('Failed to add product to cart');
+    //     }
+    // };
 
-    const handleAddToWishlist = () => {
-        toast.success(`${product.name} added to your wishlist`);
-    };
+     const handleAddToWishlist = () => {
+         toast.success(`${product.name} added to your wishlist`);
+     };
 
     const handleBuyNow = () => {
         if (product) {
-            addToCart(product, 1);
+            setProduct(product);
             router.push('/checkout');
         } else {
             toast.error('Failed to proceed to checkout');
         }
     };
 
-    const decreaseQuantity = () => {
-        if (quantity > 1) {
-            setQuantity(quantity - 1);
-        }
-    };
+    // const decreaseQuantity = () => {
+    //     if (quantity > 1) {
+    //         setQuantity(quantity - 1);
+    //     }
+    // };
 
-    const increaseQuantity = () => {
-        if (quantity < product.stock!) {
-            setQuantity(quantity + 1);
-        }
-    };
+    // const increaseQuantity = () => {
+    //     if (quantity < product.stock!) {
+    //         setQuantity(quantity + 1);
+    //     }
+    // };
 
     return (
         <div className="min-h-screen flex flex-col">
@@ -107,7 +110,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                             {product.images && product.images.length > 0 && (
                                 <div className="mb-4 rounded-xl overflow-hidden">
                                     <Image
-                                        src={imageUrlFor(product.images[selectedImage]).url()}
+                                        src={"/"}
                                         alt={product.name || ""}
                                         width={400}
                                         height={0}
@@ -159,12 +162,19 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                             {/* Title */}
                             <h1 className="text-3xl font-medium mb-2">{product.name}</h1>
                             <p className="text-xl text-bloom-gray mb-6">{product.tagline}</p>
+                            <Image
+                                src="/size-chart.jpg"
+                                alt="Size Chart"
+                                width={400}
+                                height={400}
+                                className="w-full h-auto object-cover"
+                            />
 
                             {/* Price */}
                             <div className="mb-6">
                                 {product.price &&
                                     <span className="text-2xl font-medium">
-                                        ${product.price?.toFixed(2)}
+                                        ₹{product.price?.toFixed(2)}
                                     </span>
                                 }
                                 {/* {product.discountPrice ? (
@@ -233,7 +243,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
 
                             {/* Add to cart */}
                             <div className="mb-8">
-                                <div className="flex items-center gap-4 mb-4">
+                                {/* <div className="flex items-center gap-4 mb-4">
                                     <div className="flex items-center border rounded-full overflow-hidden">
                                         <button
                                             className="px-3 py-2 bg-bloom-pink/20 text-bloom-dark"
@@ -254,7 +264,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                                     <Button className="btn-primary" onClick={handleAddToCart}>
                                         Add to Cart
                                     </Button>
-                                </div>
+                                </div> */}
                                 <Button variant="outline" onClick={handleAddToWishlist}>
                                     <Heart size={16} className="mr-2" /> Add to Wishlist
                                 </Button>
@@ -262,10 +272,10 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
 
                             {/* Add to Cart and Buy Now */}
                             <div className="flex gap-4 mt-6">
-                                <Button className="btn-primary" onClick={handleAddToCart}>
+                                {/* <Button className="btn-primary" onClick={handleAddToCart}>
                                     Add to Cart
-                                </Button>
-                                <Button className="btn-secondary" onClick={handleBuyNow}>
+                                </Button> */}
+                                <Button className="w-full" onClick={handleBuyNow}>
                                     Buy Now
                                 </Button>
                             </div>
@@ -365,6 +375,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                         </section>
                     )} */}
                 </div>
+
             </main>
 
             <Footer />
