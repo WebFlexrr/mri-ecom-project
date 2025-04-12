@@ -19,13 +19,13 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, title, subtitle }) 
         </div>
       )}
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {products.map((product) => (
           <div key={product.id} className="h-full">
             <ProductCard product={product} />
           </div>
         ))}
-      </div>
+      </section>
     </section>
   );
 };

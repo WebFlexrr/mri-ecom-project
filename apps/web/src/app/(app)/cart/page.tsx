@@ -1,45 +1,33 @@
 "use client"
-import React, { useState } from "react";
+import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-
 import { getProductById } from "@/data/products";
 import { X, ShoppingBag } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
 import Link from "next/link";
+import { useCartStore } from '@/store/cartStore';
 
-// In a real app, this would come from a cart state/context
-const initialCartItems = [
-  { productId: "1", quantity: 1 },
-  { productId: "4", quantity: 1 },
-];
 
 const CartPage = () => {
-  const [cartItems, setCartItems] = useState(initialCartItems);
+  const { cart, updateQuantity, removeFromCart } = useCartStore();
 
   const handleUpdateQuantity = (productId: string, newQuantity: number) => {
     if (newQuantity < 1) {
       return;
     }
-
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.productId === productId ? { ...item, quantity: newQuantity } : item
-      )
-    );
+    updateQuantity(productId, newQuantity);
   };
 
   const handleRemoveItem = (productId: string) => {
-    setCartItems((prevItems) =>
-      prevItems.filter((item) => item.productId !== productId)
-    );
+    removeFromCart(productId);
     toast.success("Item removed from cart");
   };
 
   const calculateSubtotal = () => {
-    return cartItems.reduce((total, item) => {
+    return cart.reduce((total, item) => {
       const product = getProductById(item.productId);
       if (product) {
         const price = product.discountPrice || product.price;
@@ -61,12 +49,12 @@ const CartPage = () => {
         <div className="container mx-auto max-w-6xl">
           <h1 className="text-3xl font-medium mb-6">Your Cart</h1>
 
-          {cartItems.length > 0 ? (
+          {cart.length > 0 ? (
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Cart items */}
               <div className="lg:w-2/3">
                 <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
-                  {cartItems.map((item) => {
+                  {cart.map((item) => {
                     const product = getProductById(item.productId);
                     if (!product) return null;
 
@@ -96,6 +84,7 @@ const CartPage = () => {
                             <button
                               onClick={() => handleRemoveItem(product.id)}
                               className="text-bloom-gray hover:text-bloom-coral transition-colors"
+                              title="Remove item"
                             >
                               <X size={18} />
                             </button>
@@ -188,9 +177,11 @@ const CartPage = () => {
                     </div>
                   </div>
 
+                  <Link href={"/checkout"}>
                   <Button className="btn-primary w-full mb-4">
-                    Proceed to Checkout
+                  Proceed to Checkout
                   </Button>
+                  </Link>
 
                   <div className="text-center text-bloom-gray text-sm">
                     <p className="mb-2">Secure Checkout</p>
@@ -210,7 +201,7 @@ const CartPage = () => {
               </div>
               <h2 className="text-xl font-medium mb-2">Your cart is empty</h2>
               <p className="text-bloom-gray mb-6">
-                Looks like you haven't added anything to your cart yet.
+                Looks like you haven&apos;t added anything to your cart yet.
               </p>
               <Link href="/products">
                 <Button className="btn-primary">Start Shopping</Button>

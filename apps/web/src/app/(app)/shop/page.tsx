@@ -41,6 +41,7 @@ const ShopPage = () => {
 
     if (purpose) {
       filteredProducts = filteredProducts.filter((product) =>
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         product.purposes.includes(purpose as any)
       );
       setPurposeFilter(purpose);
@@ -180,7 +181,7 @@ const ShopPage = () => {
             <div className="text-center py-16">
               <h3 className="text-xl mb-2">No products found</h3>
               <p className="text-bloom-gray">
-                Try adjusting your filters to find what you're looking for.
+                Try adjusting your filters to find what you&apos;re looking for.
               </p>
             </div>
           )}
