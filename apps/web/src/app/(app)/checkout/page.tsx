@@ -14,6 +14,15 @@ import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/store/cartStore';
 import Link from 'next/link';
 
+// Update CartItem type to include color and size
+export interface CartItem {
+  productId: string;
+  quantity: number;
+  color?: string;
+  size?: string;
+}
+
+
 const Checkout = () => {
   // Checkout steps
   const steps = ["Information", "Shipping", "Payment"];
@@ -43,7 +52,7 @@ const Checkout = () => {
       router.push('/cart');
       toast.error("Your cart is empty");
     }
-  }, [cart]);
+  }, [cart, router]);
 
   const calculateSubtotal = (): number => {
     return cart.reduce((total, item) => {
@@ -462,12 +471,5 @@ const Checkout = () => {
   );
 };
 
-// Update CartItem type to include color and size
-interface CartItem {
-  productId: string;
-  quantity: number;
-  color?: string;
-  size?: string;
-}
 
 export default Checkout;

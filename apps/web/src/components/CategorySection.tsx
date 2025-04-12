@@ -43,7 +43,7 @@ const categoryData: CategoryCardProps[] = [
   },
 ];
 
-const CategoryCard: React.FC<CategoryCardProps> = ({ category, imageUrl, title, description }) => {
+const CategoryCard: FC<CategoryCardProps> = ({ category, imageUrl, title, description }) => {
   return (
     <Link href={`/shop/${category}`}>
       <Card className="overflow-hidden hover:shadow-md transition-all hover:-translate-y-1">
