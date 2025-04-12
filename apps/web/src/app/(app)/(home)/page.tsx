@@ -1,8 +1,6 @@
 import CategorySection from "@/components/CategorySection";
 import FeaturedSection from "@/components/FeaturedSection";
 // import FaqSection from "@/components/FaqSection";
-
-
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
@@ -12,7 +10,7 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import { getFeaturedProducts,  } from "@/data/products";
 // import { getFeaturedProducts, getNewArrivals } from "@/data/products";
 
-export default function Home() {
+export default async function Home() {
   const featuredProducts = getFeaturedProducts();
   // const newArrivals = getNewArrivals();
   return (

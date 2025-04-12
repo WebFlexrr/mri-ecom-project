@@ -1,10 +1,12 @@
 
-import React, { FC } from 'react';
+import React from 'react';
 import { Product } from '@/types/product';
 import ProductGrid from './ProductGrid';
-import { Button } from '@/components/ui/button';
+
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { Button } from './ui/button';
+
 
 
 interface FeaturedSectionProps {
@@ -16,23 +18,19 @@ interface FeaturedSectionProps {
   bgColor?: string;
 }
 
-const FeaturedSection: FC<FeaturedSectionProps> = ({ 
-  title, 
-  subtitle, 
+const FeaturedSection = ({
+  title,
+  subtitle,
   products,
   linkTo,
   linkText,
-  bgColor = "bg-white"
-}) => {
+  bgColor = "bg-white",
+}: FeaturedSectionProps) => {
   return (
     <section className={`section-padding py-20 ${bgColor}`}>
       <div className="w-full max-w-6xl mx-auto">
-        <ProductGrid 
-          products={products} 
-          title={title} 
-          subtitle={subtitle} 
-        />
-        
+        <ProductGrid products={products} title={title} subtitle={subtitle} />
+
         {linkTo && linkText && (
           <div className="mt-10 text-center">
             <Link href={linkTo}>

@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { ProductCategory } from '@/types/product';
+import { Card, CardContent } from './ui/card';
 
 interface CategoryCardProps {
   category: ProductCategory;
@@ -44,7 +45,7 @@ const categoryData: CategoryCardProps[] = [
 
 const CategoryCard: React.FC<CategoryCardProps> = ({ category, imageUrl, title, description }) => {
   return (
-    <Link href={`/products?category=${category}`}>
+    <Link href={`/shop/${category}`}>
       <Card className="overflow-hidden hover:shadow-md transition-all hover:-translate-y-1">
         <div className="h-48 overflow-hidden">
           <Image

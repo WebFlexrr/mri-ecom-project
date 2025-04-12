@@ -1,13 +1,13 @@
 "use client"
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { useToast } from "@/hooks/use-toast";
+
+import { Input } from './ui/input';
 
 const NewsletterSection = () => {
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
+  
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,10 +18,10 @@ const NewsletterSection = () => {
     setTimeout(() => {
       setIsLoading(false);
       setEmail('');
-      toast({
-        title: "Thank you for subscribing!",
-        description: "You'll receive mindful living tips in your inbox soon.",
-      });
+      // toast({
+      //   title: "Thank you for subscribing!",
+      //   description: "You'll receive mindful living tips in your inbox soon.",
+      // });
     }, 1000);
   };
 

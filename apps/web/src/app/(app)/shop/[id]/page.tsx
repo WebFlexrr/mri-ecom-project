@@ -6,21 +6,24 @@ import { getProductById, getRelatedProducts } from "@/data/products";
 import { Button } from "@/components/ui/button";
 import { Heart, Check, ChevronRight, Star } from "lucide-react";
 import ProductGrid from "@/components/ProductGrid";
-import { toast } from "sonner";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { useCartStore } from '@/store/cartStore';
+import { toast } from "sonner";
 
 const ProductDetailPage = () => {
   // const { id } = useParams<{ id: string }>();
-   const params = useParams<{ id: string; }>();
+  const params = useParams<{ id: string; }>();
 
-   console.log("Params==>",params)
+  console.log("Params==>", params)
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
   const product = params.id ? getProductById(params.id) : undefined;
   const relatedProducts = params.id ? getRelatedProducts(params.id) : [];
+
+  const { addToCart } = useCartStore();
 
   if (!product) {
     return (
@@ -44,7 +47,10 @@ const ProductDetailPage = () => {
   }
 
   const handleAddToCart = () => {
-    toast.success(`${product.name} added to your cart`);
+    if (product) {
+      addToCart(product.id, quantity);
+      toast.success(`${product.name} added to your cart`);
+    }
   };
 
   const handleAddToWishlist = () => {
@@ -68,7 +74,7 @@ const ProductDetailPage = () => {
       <Header />
 
       <main className="flex-grow">
-        <div className="container mx-auto py-10 px-4">
+        <div className="w-full max-w-6xl mx-auto py-10 px-4">
           <div className="flex flex-col lg:flex-row gap-10">
             {/* Product Images */}
             <div className="lg:w-1/2">
@@ -86,11 +92,10 @@ const ProductDetailPage = () => {
                 {product.images.map((image, index) => (
                   <button
                     key={index}
-                    className={`rounded-lg overflow-hidden border-2 min-w-[70px] h-[70px] ${
-                      selectedImage === index
-                        ? "border-bloom-coral"
-                        : "border-transparent"
-                    }`}
+                    className={`rounded-lg overflow-hidden border-2 min-w-[70px] h-[70px] ${selectedImage === index
+                      ? "border-bloom-coral"
+                      : "border-transparent"
+                      }`}
                     onClick={() => setSelectedImage(index)}
                   >
                     <Image
@@ -153,12 +158,12 @@ const ProductDetailPage = () => {
                       size={16}
                       className={
                         star <=
-                        Math.round(
-                          product.reviews.reduce(
-                            (acc, review) => acc + review.rating,
-                            0
-                          ) / product.reviews.length
-                        )
+                          Math.round(
+                            product.reviews.reduce(
+                              (acc, review) => acc + review.rating,
+                              0
+                            ) / product.reviews.length
+                          )
                           ? "fill-bloom-coral text-bloom-coral"
                           : "text-bloom-gray/40"
                       }
@@ -197,6 +202,7 @@ const ProductDetailPage = () => {
                     <button
                       className="px-3 py-2 bg-bloom-pink/20 text-bloom-dark"
                       onClick={decreaseQuantity}
+                      title="Decrease quantity"
                     >
                       -
                     </button>
@@ -204,32 +210,18 @@ const ProductDetailPage = () => {
                     <button
                       className="px-3 py-2 bg-bloom-pink/20 text-bloom-dark"
                       onClick={increaseQuantity}
+                      title="Increase quantity"
                     >
                       +
                     </button>
                   </div>
-
-                  <span className="text-bloom-gray text-sm">
-                    {product.stock} left in stock
-                  </span>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <Button
-                    className="btn-primary flex-grow"
-                    onClick={handleAddToCart}
-                  >
+                  <Button className="btn-primary" onClick={handleAddToCart}>
                     Add to Cart
                   </Button>
-                  <Button
-                    variant="outline"
-                    className="btn-secondary flex items-center gap-2"
-                    onClick={handleAddToWishlist}
-                  >
-                    <Heart size={18} />
-                    Save
-                  </Button>
                 </div>
+                <Button variant="outline" onClick={handleAddToWishlist}>
+                  <Heart size={16} className="mr-2" /> Add to Wishlist
+                </Button>
               </div>
 
               {/* Features */}
