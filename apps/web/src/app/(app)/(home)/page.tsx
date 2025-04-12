@@ -10,6 +10,8 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import { getFeaturedProducts,  } from "@/data/products";
 // import { getFeaturedProducts, getNewArrivals } from "@/data/products";
 
+import  ComboCard  from "@/components/ui/ComboCard";
+
 export default async function Home() {
   const featuredProducts = getFeaturedProducts();
   // const newArrivals = getNewArrivals();
@@ -22,6 +24,7 @@ export default async function Home() {
         {/* <HeroSection /> */}
 
         <CategorySection />
+        <ComboCard />
 
         <FeaturedSection
           title="Customer Favorites"
