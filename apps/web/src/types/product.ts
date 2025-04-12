@@ -11,20 +11,20 @@ export interface ProductReview {
   date: string;
 }
 
-export interface Product {
-  id: string;
-  name: string;
-  tagline: string; // Emotional headline
-  price: number;
-  discountPrice?: number;
-  images: string[];
-  description: string;
-  features: string[];
-  benefits: string[]; // How it improves life
-  category: ProductCategory;
-  purposes: ProductPurpose[];
-  badges?: ('bestseller' | 'new' | 'limited')[];
-  stock: number;
-  reviews: ProductReview[];
-  related: string[]; // Related product IDs
-}
+//  interface Product {
+//   id: string;
+//   name: string;
+//   tagline: string; // Emotional headline
+//   price: number;
+//   discountPrice?: number;
+//   images: string[];
+//   description: string;
+//   features: string[];
+//   benefits: string[]; // How it improves life
+//   category: ProductCategory;
+//   purposes: ProductPurpose[];
+//   badges?: ('bestseller' | 'new' | 'limited')[];
+//   stock: number;
+//   reviews: ProductReview[];
+//   related: string[]; // Related product IDs
+// }

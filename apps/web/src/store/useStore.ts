@@ -1,27 +1,28 @@
 
+import { Products } from '@/types/sanity';
 import { create } from 'zustand';
-import { Product } from '@/types/product';
+
 
 interface CartItem {
-  product: Product;
+  product: Products;
   quantity: number;
 }
 
 interface WishlistItem {
-  product: Product;
+  product: Products;
 }
 
 interface StoreState {
   // Cart state
   cart: CartItem[];
-  addToCart: (product: Product, quantity?: number) => void;
+  addToCart: (product: Products, quantity?: number) => void;
   removeFromCart: (productId: string) => void;
   updateCartItemQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
   
   // Wishlist state
   wishlist: WishlistItem[];
-  addToWishlist: (product: Product) => void;
+  addToWishlist: (product: Products) => void;
   removeFromWishlist: (productId: string) => void;
   isInWishlist: (productId: string) => boolean;
   
@@ -34,14 +35,14 @@ export const useStore = create<StoreState>((set) => ({
   // Cart initial state and actions
   cart: [],
   
-  addToCart: (product: Product, quantity = 1) => 
+  addToCart: (product: Products, quantity = 1) => 
     set((state) => {
-      const existingItem = state.cart.find(item => item.product.id === product.id);
+      const existingItem = state.cart.find(item => item.product._id === product._id);
       
       if (existingItem) {
         return {
           cart: state.cart.map(item => 
-            item.product.id === product.id 
+            item.product._id === product._id 
               ? { ...item, quantity: item.quantity + quantity }
               : item
           )
@@ -53,13 +54,13 @@ export const useStore = create<StoreState>((set) => ({
   
   removeFromCart: (productId: string) => 
     set((state) => ({
-      cart: state.cart.filter(item => item.product.id !== productId)
+      cart: state.cart.filter(item => item.product._id !== productId)
     })),
   
   updateCartItemQuantity: (productId: string, quantity: number) => 
     set((state) => ({
       cart: state.cart.map(item => 
-        item.product.id === productId 
+        item.product._id === productId 
           ? { ...item, quantity }
           : item
       )
@@ -70,9 +71,9 @@ export const useStore = create<StoreState>((set) => ({
   // Wishlist initial state and actions
   wishlist: [],
   
-  addToWishlist: (product: Product) => 
+  addToWishlist: (product: Products) => 
     set((state) => {
-      const existingItem = state.wishlist.find(item => item.product.id === product.id);
+      const existingItem = state.wishlist.find(item => item.product._id === product._id);
       
       if (existingItem) {
         return { wishlist: state.wishlist };
@@ -83,7 +84,7 @@ export const useStore = create<StoreState>((set) => ({
   
   removeFromWishlist: (productId: string) => 
     set((state) => ({
-      wishlist: state.wishlist.filter(item => item.product.id !== productId)
+      wishlist: state.wishlist.filter(item => item.product._id !== productId)
     })),
   
   isInWishlist: () => {
