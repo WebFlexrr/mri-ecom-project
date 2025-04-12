@@ -6,10 +6,10 @@ const Shop = async () => {
   const products = await getProducts();
 
 
-  console.log("Products=======",products)
+  console.log("Products=======", products)
   return (
     <div>
-      <ShopPage products={products}/>
+      <ShopPage products={products} />
     </div>
   )
 }
