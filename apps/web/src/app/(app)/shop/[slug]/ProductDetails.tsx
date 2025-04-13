@@ -4,26 +4,25 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 // import { getProductById, getRelatedProducts } from "@/data/products";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, Heart, RotateCcw, ShieldCheck, ShoppingBag, Star, Truck, } from "lucide-react";
+import {  Heart, RotateCcw, ShieldCheck, ShoppingBag,  Truck, } from "lucide-react";
 // import ProductGrid from "@/components/ProductGrid";
 // import { useParams } from "next/navigation";
 // import Link from "next/link";
 
-import { toast } from "sonner";
+
 import { Products } from '@/types/sanity';
 // import { imageUrlFor } from "@/sanity/config/SanityImageUrl";
 // import { SanityImageSource } from "@sanity/image-url/lib/types/types";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+
 // import { urlFor } from '@/sanity/imageBuilder';
 // import { Product } from "@/types/product";
-import { useRouter } from "next/navigation";
+
 // import { useStore } from "@/store/useStore";
 
-import { useBuyNowStore } from '@/store/buyNowStore';
-import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { useCartStore } from "@/store/useCartStore";
+
+import { toast } from "sonner";
 
 
 
@@ -36,16 +35,15 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
     // const { toast } = useToast();
 
     // console.log("Params==>", params)
-    const [selectedImage, setSelectedImage] = useState(0);
+    // const [selectedImage, setSelectedImage] = useState(0);
     // const [quantity, setQuantity] = useState(1);
 
     // const product = params.id ? getProductById(params.id) : undefined;
     const product = productDetails;
     // const relatedProducts = params.id ? getRelatedProducts(params.id) : [];
 
-    // const { addToCart } = useStore();
-    const { setProduct } = useBuyNowStore();
-
+  
+    
     const [selectedColor, setSelectedColor] = useState(product?.colors[0].name || '');
     const [selectedSize, setSelectedSize] = useState(product?.size[0] || '');
     const [quantity, setQuantity] = useState(1);
@@ -71,6 +69,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
 
         );
     }
+    
     const handleAddToCart = (product: Products) => {
         addToCart({ product, size: selectedSize, color: selectedSize })
         toast("Added to cart", {
@@ -88,7 +87,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
     };
 
     const increaseQuantity = () => {
-        if (quantity < product.stock) {
+        if (quantity < product.stock!) {
             setQuantity(quantity + 1);
         }
     };
@@ -106,7 +105,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
         <div className="min-h-screen flex flex-col">
             <Header />
 
-            <div className="container mx-auto px-4 py-8">
+            <div className=" max-w-6xl mx-auto px-4 py-8">
                 {/* Breadcrumbs */}
                 {/* <div className="text-sm text-gray-500 mb-6 flex items-center">
                     <Link href="/" className="hover:text-brand-600">Home</Link>
@@ -206,8 +205,8 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                                         key={color.name}
                                         className={`w-10 h-10 rounded-full border-2 transition-all ${selectedColor === color.name ? 'border-brand-600 shadow-md' : 'border-transparent'
                                             }`}
-                                        style={{ backgroundColor: color.value }}
-                                        onClick={() => setSelectedColor(color.name)}
+                                        style={{ backgroundColor: color.color?.hex }}
+                                        onClick={() => setSelectedColor(color.name!)}
                                         title={color.name}
                                         aria-label={`Select ${color.name} color`}
                                     ></button>
@@ -224,7 +223,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                                 </button>
                             </div>
                             <div className="flex flex-wrap gap-2">
-                                {product.sizes.map((size) => (
+                                {product.size.map((size) => (
                                     <button
                                         key={size}
                                         className={`w-12 h-12 flex items-center justify-center rounded-md border transition-all ${selectedSize === size
@@ -256,7 +255,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                                 <button
                                     className="w-10 h-10 flex items-center justify-center border border-gray-300 rounded-r-md"
                                     onClick={increaseQuantity}
-                                    disabled={quantity >= product.stock}
+                                    disabled={quantity >= product.stock!}
                                 >
                                     +
                                 </button>
@@ -266,12 +265,12 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                         {/* Action Buttons */}
                         <div className="flex flex-col sm:flex-row gap-4 mb-6">
                             <Button
-                                className="flex-1 bg-brand-600 hover:bg-brand-700 text-white py-3 h-12"
-                                onClick={handleAddToCart}
+                                className="flex-1 bg-primary hover:bg-primary/35 text-black py-3 h-12"
+                                onClick={()=>handleAddToCart(product)}
                                 disabled={product.stock === 0}
                             >
                                 <ShoppingBag size={18} className="mr-2" />
-                                {product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
+                                {product.stock! > 0 ? 'Add to Cart' : 'Out of Stock'}
                             </Button>
                             <Button
                                 variant="outline"

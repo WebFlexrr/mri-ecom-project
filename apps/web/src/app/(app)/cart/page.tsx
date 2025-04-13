@@ -1,17 +1,17 @@
-
+"use client"
 import React from 'react';
-import Layout from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
 import { ShoppingCart, X, Minus, Plus } from 'lucide-react';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { getProductById } from '@/data/products';
 import { Separator } from '@/components/ui/separator';
-import { useAppStore } from '@/store';
+import { useCartStore } from "@/store/useCartStore";
 import { toast } from 'sonner';
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import Link from "next/link"
 
 const Cart = () => {
-    const { cart, removeFromCart, updateCartItemQuantity, addToCart } = useAppStore();
+    const { cart, removeFromCart, updateCartItemQuantity } = useCartStore();
 
     // // Add demo products if cart is empty
     // React.useEffect(() => {
@@ -57,19 +57,20 @@ const Cart = () => {
 
     const calculateSubtotal = (): number => {
         return cart.reduce((total, item) => {
-            const product = getProductById(item.productId);
-            return total + (product?.price || 0) * item.quantity;
+            // const product = getProductById(item.productId);
+            return total + (item.price || 0) * item.quantity;
         }, 0);
     };
 
     const subtotal: number = calculateSubtotal();
     const shipping: number = subtotal > 100 ? 0 : 10; // Free shipping over $100
-    const tax: number = subtotal * 0.1; // 10% tax
+    const tax: number = subtotal * 0; // 10% tax
     const total: number = subtotal + shipping + tax;
 
     return (
-        <Layout>
-            <div className="container mx-auto px-4 py-8 mt-20">
+        <div className="min-h-screen flex flex-col">
+            <Header />
+            <div className="w-full max-w-6xl mx-auto px-4 py-8 mt-20">
                 <h1 className="text-3xl font-bold mb-8">Your Shopping Cart</h1>
 
                 {!hasItems ? (
@@ -83,7 +84,7 @@ const Cart = () => {
                         </CardContent>
                         <CardFooter className="flex justify-center">
                             <Button asChild className="bg-primary-600 hover:bg-primary-700">
-                                <Link to="/all-products">Start Shopping</Link>
+                                <Link href="/shop">Start Shopping</Link>
                             </Button>
                         </CardFooter>
                     </Card>
@@ -93,26 +94,23 @@ const Cart = () => {
                             <Card>
                                 <CardContent className="pt-6">
                                     {cart.map((item) => {
-                                        const product = getProductById(item.productId);
-                                        if (!product) return null;
-
                                         return (
                                             <div key={item.productId} className="flex flex-col sm:flex-row gap-4 py-4 border-b last:border-0">
                                                 <div className="w-full sm:w-24 h-24 bg-gray-100 rounded overflow-hidden">
                                                     <img
-                                                        src={product.images[0]}
-                                                        alt={product.name}
+                                                        src={item.productImage}
+                                                        alt={item.productName}
                                                         className="w-full h-full object-cover"
                                                     />
                                                 </div>
 
                                                 <div className="flex-grow">
                                                     <div className="flex justify-between">
-                                                        <Link to={`/product/${product.id}`} className="font-medium hover:text-primary-600">
-                                                            {product.name}
+                                                        <Link href={`/shop/${item.productSlug}`} className="font-medium hover:text-primary-600">
+                                                            {item.productName}
                                                         </Link>
                                                         <button
-                                                            onClick={() => handleRemoveItem(product.id)}
+                                                            onClick={() => handleRemoveItem(item.productId)}
                                                             className="text-gray-400 hover:text-gray-600"
                                                             aria-label="Remove item"
                                                         >
@@ -127,7 +125,7 @@ const Cart = () => {
                                                     <div className="flex justify-between items-center mt-2">
                                                         <div className="flex items-center border rounded-md">
                                                             <button
-                                                                onClick={() => item.quantity > 1 && handleQuantityChange(product.id, item.quantity - 1)}
+                                                                onClick={() => item.quantity > 1 && handleQuantityChange(item.productId, item.quantity - 1)}
                                                                 className="px-3 py-1 text-gray-600 hover:bg-gray-100"
                                                                 disabled={item.quantity <= 1}
                                                             >
@@ -135,7 +133,7 @@ const Cart = () => {
                                                             </button>
                                                             <span className="px-3 py-1 min-w-[2rem] text-center">{item.quantity}</span>
                                                             <button
-                                                                onClick={() => handleQuantityChange(product.id, item.quantity + 1)}
+                                                                onClick={() => handleQuantityChange(item.productId, item.quantity + 1)}
                                                                 className="px-3 py-1 text-gray-600 hover:bg-gray-100"
                                                             >
                                                                 <Plus size={16} />
@@ -143,7 +141,7 @@ const Cart = () => {
                                                         </div>
 
                                                         <p className="font-medium">
-                                                            ${(product.price * item.quantity).toFixed(2)}
+                                                            ${(item.price * item.quantity).toFixed(2)}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -152,7 +150,7 @@ const Cart = () => {
                                     })}
                                 </CardContent>
                                 <CardFooter className="flex justify-between">
-                                    <Link to="/all-products" className="text-sm text-primary-600 hover:underline">
+                                    <Link href="/shop" className="text-sm text-primary-600 hover:underline">
                                         Continue Shopping
                                     </Link>
                                 </CardFooter>
@@ -194,8 +192,8 @@ const Cart = () => {
                                     </div>
                                 </CardContent>
                                 <CardFooter>
-                                    <Button asChild className="w-full bg-primary-600 hover:bg-primary-700">
-                                        <Link to="/checkout">Proceed to Checkout</Link>
+                                    <Button asChild className="w-full text-black bg-primary hover:bg-primary/35">
+                                        <Link href="/checkout">Proceed to Checkout</Link>
                                     </Button>
                                 </CardFooter>
                             </Card>
@@ -203,7 +201,10 @@ const Cart = () => {
                     </div>
                 )}
             </div>
-        </Layout>
+            <Footer />
+        </div>
+
+
     );
 };
 

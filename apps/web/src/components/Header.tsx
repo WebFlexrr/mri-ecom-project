@@ -1,11 +1,15 @@
 "use client";
 import React, { useState } from "react";
-import {  Menu, X } from "lucide-react";
+import { Menu, X, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
+import { useCartStore } from "@/store/useCartStore";
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const cart = useCartStore(state => state.cart)
+  const cartItemCount = cart.reduce((count, item) => count + item.quantity, 0);
 
   return (
     <header className="w-full py-4 px-4 md:px-8 bg-bloom-cream border-b border-bloom-pink/20">
@@ -57,12 +61,15 @@ const Header = () => {
             {/* <Link href="/wishlist" className="text-bloom-dark/70 hover:text-bloom-coral transition-colors">
             <Heart size={20} />
             </Link> */}
-            {/* <Link
-              href="/cart"
-              className="text-bloom-dark/70 hover:text-bloom-coral transition-colors"
-            >
+            
+            <Link href="/cart" className="text-gray-800 hover:text-primary-600 relative" aria-label="Cart">
               <ShoppingBag size={20} />
-            </Link> */}
+              {cartItemCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {cartItemCount}
+                </span>
+              )}
+            </Link>
 
             <button
               className="md:hidden text-bloom-dark/70"
