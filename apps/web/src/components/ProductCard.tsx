@@ -11,9 +11,6 @@ import Link from 'next/link';
 // import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Products } from '@/types/sanity';
-import { imageUrlFor } from '@/sanity/config/SanityImageUrl';
-import { SanityImageSource } from '@sanity/image-url/lib/types/types';
-
 
 interface ProductCardProps {
   product: Products;
