@@ -7,15 +7,18 @@ const ComboCard = () => {
     <section className="section-padding bg-bloom-cream">
       <div className="max-w-4xl mx-auto my-8 p-6 bg-white shadow-lg rounded-lg flex flex-col md:flex-row items-center bottom-3">
         {/* Left Column - Text and Features */}
-        <div className="md:w-1/2 p-4">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Mohun Bagan ISL Cup Winners 2025</h2>
-          <p className="text-gray-600 mb-4">
-            A planner designed to help you bloom into your best self while building a life you love. This combo includes a journal and a planner, perfect for daily reflections and planning your day ahead.
+        <div className="md:w-1/2 p-4 flex  flex-col justify-between ">
+          <div className='w-full'>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">Mohun Bagan ISL Cup Winners 2025</h2>
+            <p className="text-gray-600 mb-4">
+              A planner designed to help you bloom into your best self while building a life you love. This combo includes a journal and a planner, perfect for daily reflections and planning your day ahead.
 
-          </p>
-          
-             
-            
+            </p>
+          </div>
+
+
+
+
           <Link href={'/shop/mohun-bagan-isl-cup-winners-2025'}>
             <Button className="px-6 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition">
               Buy this combo
@@ -23,17 +26,19 @@ const ComboCard = () => {
           </Link>
         </div>
 
+
         {/* Right Column - Image */}
         <div className="md:w-1/2 p-4">
           <img
-            src="https://via.placeholder.com/400x300" // Replace with actual image URL or import from assets
-            alt="Jagruk Planner Combo"
+            src="https://cdn.sanity.io/images/3fl4uoho/production/bef3aecc91e179d0efdd790b944034993401a243-2289x2289.png" // Replace with actual image URL or import from assets
+            alt=""
             className="w-full h-auto rounded-lg shadow-md"
           />
         </div>
       </div>
-      <div className="max-w-4xl mx-auto my-29 p-6 bg-white shadow-lg rounded-lg flex flex-col md:flex-row items-center">
-        {/* Left Column - Image */}
+
+      {/* <div className="max-w-4xl mx-auto my-29 p-6 bg-white shadow-lg rounded-lg flex flex-col md:flex-row items-center">
+        {/* Left Column - Image 
         <div className="md:w-1/2 p-4">
           <img
             src="https://via.placeholder.com/400x300" // Replace with actual image URL or import from assets
@@ -42,7 +47,7 @@ const ComboCard = () => {
           />
         </div>
 
-        {/* Right Column - Text and Features */}
+        {/* Right Column - Text and Features *
         <div className="md:w-1/2 p-4">
           <h2 className="text-2xl font-bold text-gray-800 mb-2">Bloom and Build</h2>
           <p className="text-gray-600 mb-4">
@@ -60,7 +65,7 @@ const ComboCard = () => {
             Buy this combo
           </button>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 
