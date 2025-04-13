@@ -8,11 +8,11 @@ import { Products } from "@/types/sanity";
 
 
 
-interface ShopPageProps{
-    products:Products[]
+interface ShopPageProps {
+    products: Products[]
 }
 
-const ShopPage: FC<ShopPageProps> = async ({products}) => {
+const ShopPage: FC<ShopPageProps> = async ({ products }) => {
     // const params = useParams<{ category: string; purpose: string }>();
     // const router = useRouter();
 
@@ -27,63 +27,63 @@ const ShopPage: FC<ShopPageProps> = async ({products}) => {
     // const [purposeFilter, setPurposeFilter] = useState<string | null>(null);
 
     // useEffect(() => {
-        // const category = params.category || "all";
-        // const purpose = params.purpose;
+    // const category = params.category || "all";
+    // const purpose = params.purpose;
 
-        // const category = searchParams.get("category") || "all";
-        // const purpose = searchParams.get("purpose");
+    // const category = searchParams.get("category") || "all";
+    // const purpose = searchParams.get("purpose");
 
-        // let filteredProducts: Products[];
+    // let filteredProducts: Products[];
 
-        // if (category === "all") {
-        //     filteredProducts = [...products];
-        // } else {
-        //     filteredProducts = getProductsByCategory(category);
-        // }
+    // if (category === "all") {
+    //     filteredProducts = [...products];
+    // } else {
+    //     filteredProducts = getProductsByCategory(category);
+    // }
 
-        // if (purpose) {
-        //     filteredProducts = filteredProducts.filter((product) =>
-        //         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        //         product!.purpose!.includes(purpose as any)
-        //     );
-        //     setPurposeFilter(purpose);
-        // } else {
-        //     setPurposeFilter(null);
-        // }
+    // if (purpose) {
+    //     filteredProducts = filteredProducts.filter((product) =>
+    //         // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    //         product!.purpose!.includes(purpose as any)
+    //     );
+    //     setPurposeFilter(purpose);
+    // } else {
+    //     setPurposeFilter(null);
+    // }
 
-        // // Apply sorting
-        // switch (sortOption) {
-        //     case "price-low":
-        //         filteredProducts.sort((a, b) => {
-        //             const priceA = a.discountPrice || a.price;
-        //             const priceB = b.discountPrice || b.price;
-        //             return priceA - priceB;
-        //         });
-        //         break;
-        //     case "price-high":
-        //         filteredProducts.sort((a, b) => {
-        //             const priceA = a.discountPrice || a.price;
-        //             const priceB = b.discountPrice || b.price;
-        //             return priceB - priceA;
-        //         });
-        //         break;
-        //     case "newest":
-        //         // In a real app, would sort by date added
-        //         filteredProducts = filteredProducts
-        //             .filter((p) => p.badges?.includes("new"))
-        //             .concat(filteredProducts.filter((p) => !p.badges?.includes("new")));
-        //         break;
-        //     case "bestselling":
-        //         filteredProducts = filteredProducts
-        //             .filter((p) => p.badges?.includes("bestseller"))
-        //             .concat(
-        //                 filteredProducts.filter((p) => !p.badges?.includes("bestseller"))
-        //             );
-        //         break;
-        //     // featured is default, no sorting needed
-        // }
+    // // Apply sorting
+    // switch (sortOption) {
+    //     case "price-low":
+    //         filteredProducts.sort((a, b) => {
+    //             const priceA = a.discountPrice || a.price;
+    //             const priceB = b.discountPrice || b.price;
+    //             return priceA - priceB;
+    //         });
+    //         break;
+    //     case "price-high":
+    //         filteredProducts.sort((a, b) => {
+    //             const priceA = a.discountPrice || a.price;
+    //             const priceB = b.discountPrice || b.price;
+    //             return priceB - priceA;
+    //         });
+    //         break;
+    //     case "newest":
+    //         // In a real app, would sort by date added
+    //         filteredProducts = filteredProducts
+    //             .filter((p) => p.badges?.includes("new"))
+    //             .concat(filteredProducts.filter((p) => !p.badges?.includes("new")));
+    //         break;
+    //     case "bestselling":
+    //         filteredProducts = filteredProducts
+    //             .filter((p) => p.badges?.includes("bestseller"))
+    //             .concat(
+    //                 filteredProducts.filter((p) => !p.badges?.includes("bestseller"))
+    //             );
+    //         break;
+    //     // featured is default, no sorting needed
+    // }
 
-        // setDisplayedProducts(filteredProducts);
+    // setDisplayedProducts(filteredProducts);
     // }, [params.category, params.purpose, products, sortOption]);
 
     // const purposes = [

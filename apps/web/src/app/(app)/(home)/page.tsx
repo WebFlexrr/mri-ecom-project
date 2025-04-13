@@ -19,7 +19,7 @@ export default async function Home() {
     <div className="min-h-screen flex flex-col">
       {/* Header */}
       <Header />
-      <main className="flex-col flex gap-20 ">
+      <main className="flex-col flex ">
         <Hero />
         {/* <HeroSection /> */}
 

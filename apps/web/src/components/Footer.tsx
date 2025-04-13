@@ -1,6 +1,7 @@
 import React from 'react';
 import { Instagram, Twitter, Facebook, Mail } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Footer = () => {
   return (
@@ -8,7 +9,21 @@ const Footer = () => {
       <div className="container mx-auto px-4 w-full max-w-6xl  md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-1">
-            <h3 className="text-xl font-medium mb-4">Bloom & Build</h3>
+            <Link href={"/"} className="flex  py-3 w-fit items-center gap-3">
+              {/* <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-black"> */}
+                <Image
+                  src={"/logos/white-logo.png"}
+                  width={30}
+                  height={30}
+                  alt={"Webflexrr Labs."}
+                  className=""
+                />
+              {/* </div> */}
+              <div className=" text-xl font-medium ">
+                Webflexrr Shops
+              </div>
+            </Link>
+            
             <p className="text-white/70 mb-4">
               Thoughtfully crafted tools for a more mindful, purposeful life.
             </p>

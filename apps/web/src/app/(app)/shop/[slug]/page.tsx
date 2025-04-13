@@ -1,5 +1,5 @@
 import React from 'react'
-import ProductDetails from './ProductDetails'
+import ProductDetails from '../components/ProductDetails'
 import { getProductDetails } from '@/sanity/actions/queryActions'
 // import { imageUrlFor } from '@/sanity/config/SanityImageUrl'
 

@@ -1,10 +1,6 @@
-
 import React from 'react';
-
 import ProductCard from './ProductCard';
 import { Products } from '@/types/sanity';
-
-
 interface ProductGridProps {
   products: Products[];
   title?: string;
