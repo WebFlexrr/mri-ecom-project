@@ -10,8 +10,6 @@ import { useCartStore } from "@/store/useCartStore";
 import { toast } from "sonner";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
-
-
 interface ProductDetailsProps {
     productDetails: Products
 }
