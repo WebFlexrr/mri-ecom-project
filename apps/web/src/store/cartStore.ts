@@ -12,7 +12,7 @@ interface CartState {
   updateQuantity: (productId: string, quantity: number) => void;
 }
 
-export const useCartStore = create<CartState>((set) => ({
+export const useCart2Store = create<CartState>((set) => ({
   cart: [],
   addToCart: (productId, quantity) =>
     set((state) => {
