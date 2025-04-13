@@ -78,17 +78,18 @@ export type Products = {
   slug?: Slug
   tagline?: string
   price?: number
-  images?: Array<string>
+  images: Array<string>
   description?: string
   material?: string
   additionalInfo?: string
-  size?: Array<string>
-  colors?: Array<{
+  size: Array<string>
+  colors: Array<{
     color?: Color
     name?: string
     _type: 'Color Parameter'
     _key: string
   }>
+  originalPrice?:number;
   features?: Array<string>
   benefits?: Array<string>
   category?: string

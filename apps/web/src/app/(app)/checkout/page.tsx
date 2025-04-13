@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-
 // import { useAppStore } from '@/store';
 // import { getProductById } from '@/data/products';
 import { ChevronRight, CheckCircle2 } from 'lucide-react';
