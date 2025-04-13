@@ -39,7 +39,7 @@ const Checkout = () => {
     resolver: zodResolver(checkoutSchema),
     defaultValues: {
       contact: {
-        email: "user@example.com",
+        email: "",
         createAccount: false,
       },
       shipping: {
@@ -83,7 +83,7 @@ const Checkout = () => {
 
   const subtotal: number = calculateSubtotal();
   const shipping: number = 0; // Free shipping
-  const tax: number = subtotal * 0.1; // 10% tax
+  const tax: number = subtotal * 0; // 10% tax
   const total: number = subtotal + shipping + tax;
 
   const handleNextStep = () => {
@@ -114,7 +114,7 @@ const Checkout = () => {
 
     // Simulate payment processing
     try {
-      await purchaseOrderActions({
+      const orderId = await purchaseOrderActions({
         email: data.contact.email,
         firstName: data.shipping.firstName,
         lastName: data.shipping.lastName,
@@ -122,15 +122,17 @@ const Checkout = () => {
         city: data.shipping.city,
         state: data.shipping.state,
         zipCode: data.shipping.zipCode,
-        subtotal,
-        shipping,
-        total
+        shippingMethod: data.shippingMethod,
+        cart: cart,
+        totalAmount: total
       }
       )
 
+      console.log("Geneeated Order Id")
+
       toast.success("Payment successful!");
       setIsProcessingPayment(false);
-      router.push(`/thank-you`);
+      router.push(`/thank-you/${orderId}`);
     } catch (error) {
       console.log(error)
 
@@ -365,7 +367,7 @@ const Checkout = () => {
                                     <span>Free</span>
                                   </div>
 
-                                  <div className={`flex items-center justify-between border rounded-md p-4 ${field.value === 'express' ? 'bg-primary-50' : ''
+                                  {/* <div className={`flex items-center justify-between border rounded-md p-4 ${field.value === 'express' ? 'bg-primary-50' : ''
                                     }`}>
                                     <div className="flex items-center">
                                       <input
@@ -399,7 +401,7 @@ const Checkout = () => {
                                       </div>
                                     </div>
                                     <span>$24.99</span>
-                                  </div>
+                                  </div> */}
                                 </div>
                               </FormControl>
                               <FormMessage />
@@ -513,21 +515,21 @@ const Checkout = () => {
                     <div className="pt-4 space-y-2">
                       <div className="flex justify-between">
                         <span>Subtotal</span>
-                        <span>${subtotal.toFixed(2)}</span>
+                        <span>₹{subtotal.toFixed(2)}</span>
                       </div>
                       <div className="flex justify-between">
                         <span>Shipping</span>
-                        <span>{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</span>
+                        <span>{shipping === 0 ? 'Free' : `₹${shipping.toFixed(2)}`}</span>
                       </div>
                       <div className="flex justify-between">
                         <span>Taxes</span>
-                        <span>${tax.toFixed(2)}</span>
+                        <span>₹{tax.toFixed(2)}</span>
                       </div>
 
                       <div className="pt-2 mt-2">
                         <div className="flex justify-between items-center border-t border-b py-2 font-bold">
                           <span>Total</span>
-                          <span>${total.toFixed(2)}</span>
+                          <span>₹{total.toFixed(2)}</span>
                         </div>
                       </div>
                     </div>

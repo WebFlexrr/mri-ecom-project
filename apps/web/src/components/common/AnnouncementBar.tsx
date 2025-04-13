@@ -1,4 +1,4 @@
-
+"use client"
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
 
@@ -8,7 +8,7 @@ const AnnouncementBar = () => {
   if (!isVisible) return null;
   
   return (
-    <div className="bg-primary-600 text-white py-2 px-4 text-center relative">
+    <div className="bg-primary  py-2 px-4 text-black text-center relative">
       <p className="text-sm">
         <span className="font-semibold">Spring Sale!</span> Use code SPRING25 for 25% off all new arrivals
       </p>

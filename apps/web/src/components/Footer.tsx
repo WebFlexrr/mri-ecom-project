@@ -47,36 +47,36 @@ const Footer = () => {
             <h4 className="font-medium mb-4">Shop</h4>
             <ul className="space-y-2 text-white/70">
               <li>
-                <Link
-                  href="/products?category=planners"
+                <div
+                  // href="/products?category=planners"
                   className="hover:text-bloom-coral transition-colors"
                 >
-                  Planners
-                </Link>
+                  T-shirts
+                </div>
               </li>
               <li>
-                <Link
-                  href="/products?category=self-care"
+                <div
+                  // href="/products?category=self-care"
                   className="hover:text-bloom-coral transition-colors"
                 >
-                  Self-Care
-                </Link>
+                 Photo-Frames
+                </div>
               </li>
               <li>
-                <Link
-                  href="/products?category=bundles"
+                <div
+                  // href="/products?category=bundles"
                   className="hover:text-bloom-coral transition-colors"
                 >
                   Bundles
-                </Link>
+                </div>
               </li>
               <li>
-                <Link
-                  href="/products"
+                <div
+                  // href="/products"
                   className="hover:text-bloom-coral transition-colors"
                 >
                   All Products
-                </Link>
+                </div>
               </li>
             </ul>
           </div>
@@ -138,7 +138,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-white/10 mt-12 pt-6 text-white/50 text-sm flex flex-col md:flex-row justify-between">
-          <p>© 2025 Bloom & Build. All rights reserved.</p>
+          <p>© 2025 Webflexrr Labs. All rights reserved.</p>
           <div className="flex space-x-4 mt-2 md:mt-0">
             <Link
               href="/privacy"

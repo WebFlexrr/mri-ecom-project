@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link"
+import { formatCurrency } from '@/lib/formatters';
 
 const Cart = () => {
     const { cart, removeFromCart, updateCartItemQuantity } = useCartStore();
@@ -141,7 +142,8 @@ const Cart = () => {
                                                         </div>
 
                                                         <p className="font-medium">
-                                                            ${(item.price * item.quantity).toFixed(2)}
+                                                            {/* ${formatCurrency(item.price * item.quantity).toFixed(2)} */}
+                                                            {formatCurrency(item.price * item.quantity)}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -163,20 +165,20 @@ const Cart = () => {
                                     <div className="space-y-2">
                                         <div className="flex justify-between">
                                             <span>Subtotal</span>
-                                            <span>${subtotal.toFixed(2)}</span>
+                                                <span>₹{subtotal.toFixed(2)}</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span>Shipping</span>
-                                            <span>{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</span>
+                                                <span>{shipping === 0 ? 'Free' : `₹${shipping.toFixed(2)}`}</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span>Tax</span>
-                                            <span>${tax.toFixed(2)}</span>
+                                                <span>₹{tax.toFixed(2)}</span>
                                         </div>
                                         <Separator className="my-4" />
                                         <div className="flex justify-between font-bold">
                                             <span>Total</span>
-                                            <span>${total.toFixed(2)}</span>
+                                                <span>₹{total.toFixed(2)}</span>
                                         </div>
                                     </div>
 

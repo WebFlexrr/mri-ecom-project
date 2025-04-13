@@ -2,7 +2,7 @@ import { Products } from '@/types/sanity';
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
-interface CartItem {
+export interface CartItem {
   productId: string;
   productName: string;
   productImage: string;

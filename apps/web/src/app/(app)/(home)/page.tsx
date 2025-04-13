@@ -1,16 +1,8 @@
-// import CategorySection from "@/components/CategorySection";
-// import FeaturedSection from "@/components/FeaturedSection";
-// import FaqSection from "@/components/FaqSection";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-// import HeroSection from "@/components/HeroSection";
 import NewsletterSection from "@/components/NewsletterSection";
-// import TestimonialsSection from "@/components/TestimonialsSection";
-// import { getFeaturedProducts,  } from "@/data/products";
-// import { getFeaturedProducts, getNewArrivals } from "@/data/products";
-
-import  ComboCard  from "@/components/ui/ComboCard";
+import ComboCard from "@/components/ui/ComboCard";
 
 export default async function Home() {
   // const featuredProducts = getFeaturedProducts();
@@ -18,6 +10,7 @@ export default async function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
+      {/* <AnnouncementBar /> */}
       <Header />
       <main className="flex-col flex ">
         <Hero />

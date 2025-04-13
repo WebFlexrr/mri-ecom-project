@@ -16,7 +16,7 @@ export const shippingSchema = z.object({
 });
 
 export const paymentMethodSchema = z.object({
-  method: z.enum(['creditCard', 'paypal', 'razorpay', 'phonepe', 'googlepay', 'bhimUPI']),
+  method: z.enum(['creditCard', 'paypal', 'razorpay', 'phonepe', 'googlepay', 'bhimUPI',"cod"]),
   cardNumber: z.string().optional(),
   expiryDate: z.string().optional(),
   cvv: z.string().optional(),

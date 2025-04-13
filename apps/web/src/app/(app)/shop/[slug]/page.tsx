@@ -12,12 +12,12 @@ const ProductDetailsPage = async ({
   console.log("productDetails===========", productDetails)
 
   return (
-  
-      <ProductDetails productDetails={
-        productDetails
-        
-      } />
-    
+
+    <ProductDetails productDetails={
+      productDetails
+
+    } />
+
   )
 }
 

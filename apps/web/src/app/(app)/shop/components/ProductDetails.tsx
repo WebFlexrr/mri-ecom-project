@@ -3,12 +3,13 @@ import React, { FC, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Heart, RotateCcw, ShieldCheck, ShoppingBag, Truck, } from "lucide-react";
+import { RotateCcw,  ShoppingBag, Truck } from "lucide-react";
 import { Products } from '@/types/sanity';
 import Link from "next/link";
 import { useCartStore } from "@/store/useCartStore";
 import { toast } from "sonner";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import Image from "next/image";
 
 interface ProductDetailsProps {
     productDetails: Products
@@ -55,9 +56,8 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
     }
 
     const handleAddToCart = (product: Products) => {
-        addToCart({ product, size: selectedSize, color: selectedSize })
+        addToCart({ product, size: selectedSize, color: selectedColor, quantity })
         toast("Added to cart", {
-
             description: `${product.name} has been added to your cart.`,
         });
 
@@ -89,7 +89,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
         <div className="min-h-screen flex flex-col">
             <Header />
 
-            <div className=" max-w-6xl mx-auto px-4 py-8">
+            <div className=" max-w-6xl mx-auto px-4 py-20">
                 {/* Breadcrumbs */}
                 {/* <div className="text-sm text-gray-500 mb-6 flex items-center">
                     <Link href="/" className="hover:text-brand-600">Home</Link>
@@ -130,8 +130,10 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                                         }`}
                                     onClick={() => changeMainImage(image)}
                                 >
-                                    <img
+                                    <Image
                                         src={image}
+                                        width={1000}
+                                        height={0}
                                         alt={`${product.name} view ${index + 1}`}
                                         className="w-full h-full object-cover"
                                     />
@@ -159,9 +161,9 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
 
                         <div className="mb-6">
                             <div className="flex items-center">
-                                <span className="text-2xl font-bold text-gray-900">${product.price!.toFixed(2)}</span>
+                                <span className="text-2xl font-bold text-gray-900">₹{product.price!.toFixed(2)}</span>
                                 {product.originalPrice && (
-                                    <span className="ml-2 text-gray-500 line-through">${product.originalPrice.toFixed(2)}</span>
+                                    <span className="ml-2 text-gray-500 line-through">₹{product.originalPrice.toFixed(2)}</span>
                                 )}
                                 {product.originalPrice && (
                                     <span className="ml-2 bg-red-100 text-red-600 text-xs px-2 py-1 rounded">
@@ -178,7 +180,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                             </p>
                         </div>
 
-                        <p className="text-gray-600 mb-6">{product.description}</p>
+                        <p className="text-gray-600 mb-6">{product.tagline}</p>
 
                         {/* Colors */}
                         <div className="mb-6">
@@ -187,7 +189,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                                 {product.colors.map((color) => (
                                     <button
                                         key={color.name}
-                                        className={`w-10 h-10 rounded-full border-2 transition-all ${selectedColor === color.name ? 'border-brand-600 shadow-md' : 'border-transparent'
+                                        className={`w-10 h-10 rounded-full border-2  transition-all ${selectedColor === color.name ? 'border-primary/50 shadow-md' : 'border-transparent'
                                             }`}
                                         style={{ backgroundColor: color.color?.hex }}
                                         onClick={() => setSelectedColor(color.name!)}
@@ -202,16 +204,16 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                         <div className="mb-6">
                             <div className="flex justify-between items-center mb-2">
                                 <h3 className="text-sm font-medium text-gray-700">Sizes</h3>
-                                <button className="text-sm text-brand-600 hover:text-brand-700">
+                                {/* <button className="text-sm text-brand-600 hover:text-brand-700">
                                     Size Guide
-                                </button>
+                                </button> */}
                             </div>
                             <div className="flex flex-wrap gap-2">
                                 {product.size.map((size) => (
                                     <button
                                         key={size}
                                         className={`w-12 h-12 flex items-center justify-center rounded-md border transition-all ${selectedSize === size
-                                            ? 'border-brand-600 bg-brand-50 text-brand-700'
+                                            ? 'border-primary bg-primary/50 text-brand-700'
                                             : 'border-gray-300 hover:border-gray-400'
                                             }`}
                                         onClick={() => setSelectedSize(size)}
@@ -249,21 +251,31 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                         {/* Action Buttons */}
                         <div className="flex flex-col sm:flex-row gap-4 mb-6">
                             <Button
+                                
                                 className="flex-1 bg-primary hover:bg-primary/35 text-black py-3 h-12"
+                               
+                                onClick={handleAddToWishlist}
+                            >
+                                {/* <Heart size={18} className="mr-2" /> */}
+                                Book Now
+                            </Button>
+                            <Button
+                                className="flex-1 border-brand-600 text-bold text-brand-600 hover:bg-brand-50 py-3 h-12"
+                                variant="outline"
                                 onClick={() => handleAddToCart(product)}
                                 disabled={product.stock === 0}
                             >
                                 <ShoppingBag size={18} className="mr-2" />
                                 {product.stock! > 0 ? 'Add to Cart' : 'Out of Stock'}
                             </Button>
-                            <Button
+                            {/* <Button
                                 variant="outline"
                                 className="flex-1 border-brand-600 text-brand-600 hover:bg-brand-50 py-3 h-12"
                                 onClick={handleAddToWishlist}
                             >
                                 <Heart size={18} className="mr-2" />
                                 Add to Wishlist
-                            </Button>
+                            </Button> */}
                         </div>
 
                         {/* Product Benefits */}
@@ -276,10 +288,10 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                                 <RotateCcw size={20} className="text-brand-600 mr-2" />
                                 <span className="text-sm">30-day easy returns</span>
                             </div>
-                            <div className="flex items-center">
+                            {/* <div className="flex items-center">
                                 <ShieldCheck size={20} className="text-brand-600 mr-2" />
                                 <span className="text-sm">2-year warranty</span>
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className="flex flex-col gap-4  border-b border-gray-200  mb-8">
