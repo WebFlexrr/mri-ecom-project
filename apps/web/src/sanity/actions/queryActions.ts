@@ -1,12 +1,8 @@
 "use server";
-
-
 import { Products } from "@/types/sanity";
 import { sanityFetch } from "../lib/client";
 import {
-
 	PRODUCTS_QUERY,
-	
 	SINGLE_PROJECT_QUERY,
 } from "./queries";
 

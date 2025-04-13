@@ -2,26 +2,11 @@
 import React, { FC, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-// import { getProductById, getRelatedProducts } from "@/data/products";
 import { Button } from "@/components/ui/button";
 import {  Heart, RotateCcw, ShieldCheck, ShoppingBag,  Truck, } from "lucide-react";
-// import ProductGrid from "@/components/ProductGrid";
-// import { useParams } from "next/navigation";
-// import Link from "next/link";
-
-
 import { Products } from '@/types/sanity';
-// import { imageUrlFor } from "@/sanity/config/SanityImageUrl";
-// import { SanityImageSource } from "@sanity/image-url/lib/types/types";
-
-// import { urlFor } from '@/sanity/imageBuilder';
-// import { Product } from "@/types/product";
-
-// import { useStore } from "@/store/useStore";
-
 import Link from "next/link";
 import { useCartStore } from "@/store/useCartStore";
-
 import { toast } from "sonner";
 
 
