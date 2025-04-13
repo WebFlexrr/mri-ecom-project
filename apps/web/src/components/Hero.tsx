@@ -3,13 +3,13 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <section className="w-full h-auto">
+    <section className="w-full h-fit ">
       <Image
         src="/hero-cover.webp"
         width={1000}
         height={0}
         alt="Hero Image"
-        className="w-full aspect-video h-80 object-cover object-center"
+        className="w-full aspect-video lg:aspect-[16/5] object-cover object-center"
       />
       {/* <div className="carousel-item">
         <Image

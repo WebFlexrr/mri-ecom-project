@@ -3,11 +3,12 @@ import React, { FC, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import {  Heart, RotateCcw, ShieldCheck, ShoppingBag,  Truck, } from "lucide-react";
+import { Heart, RotateCcw, ShieldCheck, ShoppingBag, Truck, } from "lucide-react";
 import { Products } from '@/types/sanity';
 import Link from "next/link";
 import { useCartStore } from "@/store/useCartStore";
 import { toast } from "sonner";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 
 
@@ -27,8 +28,8 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
     const product = productDetails;
     // const relatedProducts = params.id ? getRelatedProducts(params.id) : [];
 
-  
-    
+
+
     const [selectedColor, setSelectedColor] = useState(product?.colors[0].name || '');
     const [selectedSize, setSelectedSize] = useState(product?.size[0] || '');
     const [quantity, setQuantity] = useState(1);
@@ -54,7 +55,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
 
         );
     }
-    
+
     const handleAddToCart = (product: Products) => {
         addToCart({ product, size: selectedSize, color: selectedSize })
         toast("Added to cart", {
@@ -251,7 +252,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                         <div className="flex flex-col sm:flex-row gap-4 mb-6">
                             <Button
                                 className="flex-1 bg-primary hover:bg-primary/35 text-black py-3 h-12"
-                                onClick={()=>handleAddToCart(product)}
+                                onClick={() => handleAddToCart(product)}
                                 disabled={product.stock === 0}
                             >
                                 <ShoppingBag size={18} className="mr-2" />
@@ -282,6 +283,34 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                                 <span className="text-sm">2-year warranty</span>
                             </div>
                         </div>
+
+                        <div className="flex flex-col gap-4  border-b border-gray-200  mb-8">
+                            <Accordion type="single" collapsible>
+                                <AccordionItem value="item-1">
+                                    <AccordionTrigger className="text-2xl">Description</AccordionTrigger>
+                                    <AccordionContent className="text-lg">
+                                        {product.description}
+                                    </AccordionContent>
+                                </AccordionItem>
+                                <AccordionItem value="item-2">
+                                    <AccordionTrigger className="text-2xl">Material</AccordionTrigger>
+                                    <AccordionContent className="text-lg">
+                                        {product.material}
+                                    </AccordionContent>
+                                </AccordionItem>
+                                {product.additionalInfo &&
+                                    <AccordionItem value="item-3">
+                                        <AccordionTrigger className="text-2xl">Additional Information</AccordionTrigger>
+                                        <AccordionContent className="text-lg">
+                                            {product.additionalInfo}
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                }
+
+                            </Accordion>
+
+                        </div>
+
 
                         {/* Social Share */}
                         <div className="flex items-center space-x-4">

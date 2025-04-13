@@ -4,8 +4,8 @@ import { Button } from './button';
 
 const ComboCard = () => {
   return (
-    <section className="section-padding bg-bloom-cream">
-      <div className="max-w-4xl mx-auto my-8 p-6 bg-white shadow-lg rounded-lg flex flex-col md:flex-row items-center bottom-3">
+    <section className="p-6 py-40  bg-bloom-cream ">
+      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg flex flex-col-reverse md:flex-row items-center bottom-3">
         {/* Left Column - Text and Features */}
         <div className="md:w-1/2 p-4 flex  flex-col justify-between ">
           <div className='w-full'>
@@ -25,7 +25,7 @@ const ComboCard = () => {
             </Button>
           </Link>
         </div>
-        
+
 
         {/* Right Column - Image */}
         <div className="md:w-1/2 p-4">
@@ -36,7 +36,7 @@ const ComboCard = () => {
           />
         </div>
       </div>
-      
+
       {/* <div className="max-w-4xl mx-auto my-29 p-6 bg-white shadow-lg rounded-lg flex flex-col md:flex-row items-center">
         {/* Left Column - Image 
         <div className="md:w-1/2 p-4">

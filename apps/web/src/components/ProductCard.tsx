@@ -52,14 +52,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <Card className="product-card h-full py-0 gap-0  rounded-none transition-all hover:-translate-y-1 hover:shadow-md">
         <CardHeader className="relative px-0 overflow-hidden rounded-t-lg">
           {product.images && <Image
-            src={imageUrlFor(product.images[0] as SanityImageSource
-            ).url()}
+            src={product.images[0]
+            }
             alt={product.name || ""}
             width={1000}
             height={0}
             // className="h-48 w-full object-cover aspect-square transition-transform hover:scale-105" 
             className=" w-full object-cover  aspect-square transition-transform hover:scale-105"
-          />} 
+          />}
           {renderBadges()}
           {/* <Button
             className="absolute right-3 top-3 rounded-full bg-white/80 p-1.5 transition-colors hover:bg-white hover:text-bloom-coral"

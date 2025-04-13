@@ -15,12 +15,7 @@ const Header = () => {
     <header className="w-full py-4 px-4 md:px-8 bg-bloom-cream border-b border-bloom-pink/20">
       <div className="w-full max-w-6xl mx-auto flex justify-between items-center">
         <section className="w-full items-center flex justify-items-start ">
-          <Link
-            href="/"
-            className="text-xl md:text-2xl font-medium text-bloom-dark "
-          >
-
-          </Link>
+          
           <Link href={"/"} className="flex w-fit items-center gap-3">
             <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-black">
               <Image
