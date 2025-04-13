@@ -43,7 +43,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
     const product = productDetails;
     // const relatedProducts = params.id ? getRelatedProducts(params.id) : [];
 
-    // const { addToCart } = useStore();
+  
     const { setProduct } = useBuyNowStore();
 
     const [selectedColor, setSelectedColor] = useState(product?.colors[0].name || '');

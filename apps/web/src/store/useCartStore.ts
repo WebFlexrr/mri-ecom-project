@@ -17,7 +17,7 @@ export type CartState = {
 }
 
 export type CartActions = {
-addToCart: ({product,quantity,size, color}:{product: Products,quantity?:number,size:string, color:string} ) => void;
+  addToCart: ({product,quantity,size, color}:{product: Products,quantity?:number,size:string, color:string} ) => void;
   removeFromCart: (productId: string) => void;
   updateCartItemQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
