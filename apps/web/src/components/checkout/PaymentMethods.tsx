@@ -7,10 +7,10 @@ import {
   AccordionTrigger 
 } from "@/components/ui/accordion";
 import { 
-  CreditCard, 
-  SmartphoneNfc,
+
   Phone,
-  ArrowRightLeft
+  
+  House
 } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -25,7 +25,7 @@ interface PaymentMethodsProps {
 const PaymentMethods: React.FC<PaymentMethodsProps> = ({ control }) => {
   return (
     <Accordion type="single" defaultValue="creditCard" className="w-full">
-      <AccordionItem value="creditCard" className="border rounded-md p-2 mb-3">
+      {/* <AccordionItem value="creditCard" className="border rounded-md p-2 mb-3">
         <FormField
           control={control}
           name="payment.method"
@@ -108,9 +108,9 @@ const PaymentMethods: React.FC<PaymentMethodsProps> = ({ control }) => {
             </>
           )}
         />
-      </AccordionItem>
+      </AccordionItem> */}
 
-      <AccordionItem value="paypal" className="border rounded-md p-2 mb-3">
+      {/* <AccordionItem value="paypal" className="border rounded-md p-2 mb-3">
         <FormField
           control={control}
           name="payment.method"
@@ -142,9 +142,9 @@ const PaymentMethods: React.FC<PaymentMethodsProps> = ({ control }) => {
             </>
           )}
         />
-      </AccordionItem>
+      </AccordionItem> */}
 
-      <AccordionItem value="razorpay" className="border rounded-md p-2 mb-3">
+      {/* <AccordionItem value="razorpay" className="border rounded-md p-2 mb-3">
         <FormField
           control={control}
           name="payment.method"
@@ -173,7 +173,7 @@ const PaymentMethods: React.FC<PaymentMethodsProps> = ({ control }) => {
             </>
           )}
         />
-      </AccordionItem>
+      </AccordionItem> */}
 
       <AccordionItem value="phonepe" className="border rounded-md p-2 mb-3">
         <FormField
@@ -219,7 +219,7 @@ const PaymentMethods: React.FC<PaymentMethodsProps> = ({ control }) => {
         />
       </AccordionItem>
 
-      <AccordionItem value="googlepay" className="border rounded-md p-2 mb-3">
+      {/* <AccordionItem value="googlepay" className="border rounded-md p-2 mb-3">
         <FormField
           control={control}
           name="payment.method"
@@ -266,9 +266,9 @@ const PaymentMethods: React.FC<PaymentMethodsProps> = ({ control }) => {
             </>
           )}
         />
-      </AccordionItem>
+      </AccordionItem> */}
 
-      <AccordionItem value="bhimUPI" className="border rounded-md p-2">
+      {/* <AccordionItem value="bhimUPI" className="border rounded-md p-2">
         <FormField
           control={control}
           name="payment.method"
@@ -305,6 +305,49 @@ const PaymentMethods: React.FC<PaymentMethodsProps> = ({ control }) => {
                       </FormItem>
                     )}
                   />
+                </div>
+              </AccordionContent>
+            </>
+          )}
+        />
+      </AccordionItem> */}
+      <AccordionItem value="CashOnDelivery" className="border rounded-md p-2 mb-3">
+        <FormField
+          control={control}
+          name="payment.method"
+          render={({ field }) => (
+            <>
+              <AccordionTrigger className="px-3 py-2 flex items-center">
+                <div className="flex items-center flex-1">
+                  <input
+                    type="radio"
+                    className="mr-3"
+                    id="payment-cod"
+                    checked={field.value === "cod"}
+                    onChange={() => field.onChange("cod")}
+                  />
+                  <div className="mr-3 h-5 w-5 flex items-center justify-center">
+                    <House  className="h-5 w-5 text-[#2262CC]" />
+                  </div>
+                  <Label htmlFor="payment-cpd">Cash On Delivery</Label>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="px-4 pt-4">
+                <div className="text-center p-4">
+                  <p>Payment will be done when the Delivery happens.</p>
+                  {/* <FormField
+                    control={control}
+                    name="payment.upiId"
+                    render={({ field }) => (
+                      <FormItem className="mt-4">
+                        <FormLabel>UPI ID</FormLabel>
+                        <FormControl>
+                          <Input placeholder="username@upi" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  /> */}
                 </div>
               </AccordionContent>
             </>

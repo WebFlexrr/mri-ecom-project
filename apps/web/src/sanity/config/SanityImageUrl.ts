@@ -6,6 +6,6 @@ import { client } from "../lib/client";
 // Get a pre-configured url-builder from your sanity client
 const builder = imageUrlBuilder(client);
 
-const imageUrlFor = (source: SanityImageSource): ImageUrlBuilder => {
+export const imageUrlFor = (source: SanityImageSource): ImageUrlBuilder => {
 	return builder.image(source);
 };

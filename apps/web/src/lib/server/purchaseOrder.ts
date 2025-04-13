@@ -1,24 +1,22 @@
 "use server";
-
 import { client } from "@/sanity/lib/client";
+import { CartItem } from "@/store/useCartStore";
+import { v4 as uuidv4 } from 'uuid'
 
 export const purchaseOrderActions = async ({
-
-
-	
 	email,
-      firstName,
-      lastName,
-      address,
-      city,
-      state,
-      zipCode,
-    subtotal,
-    shipping,
+  firstName,
+  lastName,
+  address,
+  city,
+  state,
+  zipCode,
+  shippingMethod,
+  cart,totalAmount
 
-    total,
+
+ 
 }: {
-	message?: string | undefined;
 	
 	 email:string,
       firstName:string,
@@ -27,15 +25,9 @@ export const purchaseOrderActions = async ({
       city:string,
       state:string,
       zipCode:string,
-    subtotal:number,
-    shipping:number,
-
-    total:number,
-    
-    
-      
- 
-
+      shippingMethod:string,
+      cart:CartItem[],
+      totalAmount:number
 }) => {
 	// console.log({
 	// 	message,
@@ -52,17 +44,32 @@ export const purchaseOrderActions = async ({
       city,
       state,
       zipCode,
-    subtotal,
-    shipping,
-
-    total,
+      shippingMethod,
+      items:cart.map(item => {
+          return {
+            _type: 'item',
+              _key: uuidv4(),
+            product: {
+              _type: 'reference',
+              _ref: item.productId, // pass the Sanity _id of the product
+            },
+            productName: item.productName,
+            size: item.size,
+            color: item.color,
+            quantity: item.quantity,
+            price: item.price
+          }}),
+      status:'pending',
+      totalAmount,
 		createdAt: new Date().toISOString(),
 	};
 
 	try {
-		await client.create(queryDoc);
+		const data = await client.create(queryDoc);
+console.log("Sented Data",data)
 
-		alert("Message send");
+return data._id
+		
 	} catch (error) {
 		console.log(error);
 		return error;

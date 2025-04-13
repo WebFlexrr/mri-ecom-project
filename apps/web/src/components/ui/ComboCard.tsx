@@ -5,9 +5,11 @@ import { Button } from './button';
 const ComboCard = () => {
   return (
     <section className="p-6 py-40  bg-bloom-cream ">
-      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg flex flex-col-reverse md:flex-row items-center bottom-3">
+      <div className="max-w-4xl border  mx-auto bg-white shadow-xl rounded-lg flex flex-col-reverse md:flex-row items-center md:items-start ">
         {/* Left Column - Text and Features */}
-        <div className="md:w-1/2 p-4 flex  flex-col justify-between ">
+        <div className="md:w-1/2 md:h-full flex-1  gap-10  p-6 flex  flex-col justify-between ">
+          <section className='md:w-11/12 mx-auto '>
+
           <div className='w-full'>
             <h2 className="text-2xl font-bold text-gray-800 mb-2">Mohun Bagan ISL Cup Winners 2025</h2>
             <p className="text-gray-600 mb-4">
@@ -15,18 +17,16 @@ const ComboCard = () => {
 
             </p>
           </div>
+          <div className='w-full'>
 
-
-
-
+          </div>
           <Link href={'/shop/mohun-bagan-isl-cup-winners-2025'}>
-            <Button className="px-6 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition">
-              Buy this combo
+            <Button className="px-6 py-2 bg-red-500 text-white rounded-xl hover:bg-red-600 transition">
+              Buy Now
             </Button>
           </Link>
+          </section>
         </div>
-
-
         {/* Right Column - Image */}
         <div className="md:w-1/2 p-4">
           <img

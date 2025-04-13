@@ -5,17 +5,50 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { useCartStore } from "@/store/useCartStore";
+import { usePathname, } from "next/navigation";
+
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const cart = useCartStore(state => state.cart)
+  const pathname = usePathname()
+
+  console.log(pathname)
   const cartItemCount = cart.reduce((count, item) => count + item.quantity, 0);
 
+  const navLinks = [{
+    path: "/", name: "Home"
+  },
+  {
+    path: "/shop", name: "Shop"
+  },
+  {
+    path: "/Contact", name: "Contact"
+  }
+  ]
+
+
   return (
-    <header className="w-full py-4 px-4 md:px-8 bg-bloom-cream border-b border-bloom-pink/20">
+    <header className="w-full py-6 px-4 md:px-8 bg-bloom-cream border-b border-black/20">
+
       <div className="w-full max-w-6xl mx-auto flex justify-between items-center">
-        <section className="w-full items-center flex justify-items-start ">
-          
+        <section className="w-fit md:w-full flex items-center justify-items-start md:justify-center ">
+          <nav className="hidden  md:flex space-x-8 text-bloom-dark/80">
+            {
+              navLinks.map(link => <Link key={link.path} href={link.path} className={`${pathname == link.path && "border-b border-black"} hover:text-bloom-coral  transition-colors`}>
+                {link.name}
+              </Link>)
+            }
+
+          </nav>
+          <button
+            className="md:hidden text-bloom-dark/70"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <Menu size={24} />
+          </button>
+        </section>
+        <section className="w-full items-center flex justify-center ">
           <Link href={"/"} className="flex w-fit items-center gap-3">
             <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-black">
               <Image
@@ -26,37 +59,17 @@ const Header = () => {
                 className="invert"
               />
             </div>
-            <div className=" font-bold  md:text-lg">
-              Webflexrr Shops
+            <div className=" font-semibold  md:text-lg">
+              Webflexrr Shop
             </div>
           </Link>
         </section>
-        <section className="w-full flex items-center justify-center ">
-          <nav className="hidden  md:flex space-x-8 text-bloom-dark/80">
-            <Link href="/" className="hover:text-bloom-coral transition-colors">
-              Home
-            </Link>
-            <Link
-              href="/shop"
-              className="hover:text-bloom-coral transition-colors"
-            >
-              Shop
-            </Link>
-            {/* <Link
-              href="/contact"
-              className="hover:text-bloom-coral transition-colors"
-            >
-              Contact
-            </Link> */}
-            {/* <Link href="/about" className="hover:text-bloom-coral transition-colors">About</Link> */}
-          </nav>
-        </section>
-        <section className="w-full flex justify-end items-center">
+        <section className="w-fit md:w-full flex justify-end items-center">
           <div className="flex items-center space-x-4">
             {/* <Link href="/wishlist" className="text-bloom-dark/70 hover:text-bloom-coral transition-colors">
             <Heart size={20} />
             </Link> */}
-            
+
             <Link href="/cart" className="text-gray-800 hover:text-primary-600 relative" aria-label="Cart">
               <ShoppingBag size={20} />
               {cartItemCount > 0 && (
@@ -66,15 +79,11 @@ const Header = () => {
               )}
             </Link>
 
-            <button
-              className="md:hidden text-bloom-dark/70"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              <Menu size={24} />
-            </button>
+           
           </div>
         </section>
       </div>
+
 
       {/* Mobile menu */}
       {isMenuOpen && (
@@ -119,6 +128,7 @@ const Header = () => {
           </nav>
         </div>
       )}
+
     </header>
   );
 };
