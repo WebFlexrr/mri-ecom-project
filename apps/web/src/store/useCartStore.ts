@@ -73,6 +73,4 @@ export const useCartStore = create<CartStore>()(devtools((set, get) => ({
     });
   },
   clearCart: () => set({ cart: [] }),
-
-
 })))

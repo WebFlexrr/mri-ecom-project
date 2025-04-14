@@ -52,7 +52,7 @@ const Checkout = () => {
       },
       shippingMethod: "standard",
       payment: {
-        method: "creditCard",
+        method: "cod",
         cardNumber: "",
         expiryDate: "",
         cvv: "",
@@ -128,11 +128,11 @@ const Checkout = () => {
       }
       )
 
-      console.log("Geneeated Order Id")
+      console.log("Generated Order Id")
 
       toast.success("Payment successful!");
       setIsProcessingPayment(false);
-      router.push(`/thank-you/${orderId}`);
+      router.push(`/thank-you`);
     } catch (error) {
       console.log(error)
 
@@ -325,7 +325,7 @@ const Checkout = () => {
                       <Button
                         type="button"
                         onClick={handleNextStep}
-                        className="bg-primary hover:bg-primary/90"
+                        className="bg-primary w-full md:w-fit hover:bg-primary/90"
                       >
                         Continue to Shipping
                         <ChevronRight className="ml-2" size={16} />
@@ -410,11 +410,11 @@ const Checkout = () => {
                         />
                       </div>
                     </CardContent>
-                    <CardFooter className="flex justify-between">
-                      <Button variant="outline" type="button" onClick={handlePreviousStep}>
+                    <CardFooter className="flex w-full gap-4 flex-col md:flex-row justify-between">
+                      <Button variant="outline" className='w-full md:w-fit' type="button" onClick={handlePreviousStep}>
                         Back to Information
                       </Button>
-                      <Button type="button" onClick={handleNextStep} className="bg-primary hover:bg-primary/90">
+                      <Button type="button" onClick={handleNextStep} className="bg-primary w-full md:w-fit hover:bg-primary/90">
                         Continue to Payment
                         <ChevronRight className="ml-2" size={16} />
                       </Button>
@@ -455,13 +455,13 @@ const Checkout = () => {
                         />
                       </div>
                     </CardContent>
-                    <CardFooter className="flex justify-between">
-                      <Button variant="outline" type="button" onClick={handlePreviousStep}>
+                    <CardFooter className="flex w-full gap-4 flex-col md:flex-row justify-between">
+                      <Button variant="outline" className='w-full md:w-fit' type="button" onClick={handlePreviousStep}>
                         Back to Shipping
                       </Button>
                       <Button
                         type="submit"
-                        className="bg-primary hover:bg-primary/90"
+                        className="bg-primary w-full md:w-fit hover:bg-primary/90"
                         disabled={isProcessingPayment}
                       >
                         {isProcessingPayment ? "Processing..." : "Complete Purchase"}
@@ -484,9 +484,6 @@ const Checkout = () => {
                   <CardContent className="space-y-4">
                     <div className="max-h-60 overflow-auto space-y-3">
                       {cart.map((item) => {
-
-
-
                         return (
                           <div key={item.productId} className="flex items-center gap-4">
                             <div className="w-16 h-16 bg-gray-100 rounded overflow-hidden flex-shrink-0">

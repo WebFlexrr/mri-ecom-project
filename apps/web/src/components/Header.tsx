@@ -22,11 +22,10 @@ const Header = () => {
   {
     path: "/shop", name: "Shop"
   },
-  {
-    path: "/Contact", name: "Contact"
-  }
+  // {
+  //   path: "/Contact", name: "Contact"
+  // }
   ]
-
 
   return (
     <header className="w-full py-6 px-4 md:px-8 bg-bloom-cream border-b border-black/20">

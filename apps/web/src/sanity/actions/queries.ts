@@ -25,6 +25,7 @@ seo,
 slug,
 "images":images[].asset->url ,
 price,
+originalPrice,
 name,
 _updatedAt,
 _id,
@@ -46,11 +47,33 @@ additionalInfo,
 slug,
 "images":images[].asset->url ,
 price,
+originalPrice,
 name,
 _updatedAt,
 _id,
 stock,
 }`);
+export const ORDER_PREVIEW_QUERY = (orderId: string) =>
+	defineQuery(`*[_type=="order" && _id=="${orderId}"]{
+  city,
+_rev,
+email,
+createdAt,
+firstName,
+state,
+_id,
+items,
+lastName,
+address,
+totalAmount,
+status,
+zipCode,
+shippingMethod,
+_type,
+_createdAt,
+_updatedAt,
+}`);
+
 
 export const BLOG_QUERY = defineQuery(`*[_type=="blogs"]`);
 

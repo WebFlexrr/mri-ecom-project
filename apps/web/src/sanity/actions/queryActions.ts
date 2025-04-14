@@ -1,7 +1,8 @@
 "use server";
-import { Products } from "@/types/sanity";
+import { Order, Products } from "@/types/sanity";
 import { sanityFetch } from "../lib/client";
 import {
+	ORDER_PREVIEW_QUERY,
 	PRODUCTS_QUERY,
 	SINGLE_PROJECT_QUERY,
 } from "./queries";
@@ -13,6 +14,10 @@ export const getProducts = async () =>
 
 export const getProductDetails = async (slug: string) =>
 	await sanityFetch<Products>({ query: SINGLE_PROJECT_QUERY(slug) });
+
+//Order
+export const getOrderDetails = async (orderId: string) =>
+	await sanityFetch<Order>({ query: ORDER_PREVIEW_QUERY(orderId) });
 
 //Blogs
 // export const getBlogs = async () =>

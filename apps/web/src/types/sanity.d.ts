@@ -78,6 +78,7 @@ export type Products = {
   slug?: Slug
   tagline?: string
   price?: number
+  originalPrice?: number
   images: Array<string>
   description?: string
   material?: string
@@ -98,6 +99,41 @@ export type Products = {
   stock?: number
   seo?: SeoMetaFields
 }
+
+export type Order = {
+  _id: string
+  _type: 'order'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  email?: string
+  firstName?: string
+  lastName?: string
+  address?: string
+  city?: string
+  state?: string
+  zipCode?: string
+  shippingMethod?: string
+  items?: Array<{
+    product?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'products'
+    }
+    productName?: string
+    size?: string
+    color?: string
+    quantity?: number
+    price?: number
+    _type: 'item'
+    _key: string
+  }>
+  status?: 'pending' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled'
+  totalAmount?: number
+  createdAt?: string
+}
+
 
 export type Slug = {
   _type: 'slug'
