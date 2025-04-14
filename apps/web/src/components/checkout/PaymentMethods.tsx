@@ -24,7 +24,7 @@ interface PaymentMethodsProps {
 
 const PaymentMethods: React.FC<PaymentMethodsProps> = ({ control }) => {
   return (
-    <Accordion type="single" defaultValue="creditCard" className="w-full">
+    <Accordion type="single" defaultValue="CashOnDelivery" className="w-full">
       {/* <AccordionItem value="creditCard" className="border rounded-md p-2 mb-3">
         <FormField
           control={control}
@@ -175,7 +175,7 @@ const PaymentMethods: React.FC<PaymentMethodsProps> = ({ control }) => {
         />
       </AccordionItem> */}
 
-      <AccordionItem value="phonepe" className="border rounded-md p-2 mb-3">
+      {/* <AccordionItem value="phonepe" className="border rounded-md p-2 mb-3">
         <FormField
           control={control}
           name="payment.method"
@@ -217,7 +217,7 @@ const PaymentMethods: React.FC<PaymentMethodsProps> = ({ control }) => {
             </>
           )}
         />
-      </AccordionItem>
+      </AccordionItem> */}
 
       {/* <AccordionItem value="googlepay" className="border rounded-md p-2 mb-3">
         <FormField

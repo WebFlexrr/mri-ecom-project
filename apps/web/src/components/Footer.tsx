@@ -24,9 +24,9 @@ const Footer = () => {
               </div>
             </Link>
             
-            <p className="text-white/70 mb-4">
+            {/* <p className="text-white/70 mb-4">
               Thoughtfully crafted tools for a more mindful, purposeful life.
-            </p>
+            </p> */}
             <div className="flex space-x-4 text-white/70">
               <a href="#" className="hover:text-bloom-coral transition-colors">
                 <Instagram size={20} />

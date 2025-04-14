@@ -128,11 +128,11 @@ const Checkout = () => {
       }
       )
 
-      console.log("Geneeated Order Id")
+      console.log("Generated Order Id")
 
       toast.success("Payment successful!");
       setIsProcessingPayment(false);
-      router.push(`/thank-you/${orderId}`);
+      router.push(`/order-preview/${orderId}`);
     } catch (error) {
       console.log(error)
 
@@ -484,9 +484,6 @@ const Checkout = () => {
                   <CardContent className="space-y-4">
                     <div className="max-h-60 overflow-auto space-y-3">
                       {cart.map((item) => {
-
-
-
                         return (
                           <div key={item.productId} className="flex items-center gap-4">
                             <div className="w-16 h-16 bg-gray-100 rounded overflow-hidden flex-shrink-0">

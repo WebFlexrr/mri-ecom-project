@@ -3,13 +3,14 @@ import React, { FC, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { RotateCcw,  ShoppingBag, Truck } from "lucide-react";
+import { RotateCcw, ShoppingBag, Star, Truck } from "lucide-react";
 import { Products } from '@/types/sanity';
 import Link from "next/link";
 import { useCartStore } from "@/store/useCartStore";
 import { toast } from "sonner";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface ProductDetailsProps {
     productDetails: Products
@@ -33,11 +34,9 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
     const [selectedSize, setSelectedSize] = useState(product?.size[0] || '');
     const [quantity, setQuantity] = useState(1);
     const [mainImage, setMainImage] = useState(product?.images[0] || '');
+    const router = useRouter()
 
     const addToCart = useCartStore(state => state.addToCart)
-
-
-
     if (!product) {
         return (
             <div className="min-h-screen flex flex-col">
@@ -63,12 +62,21 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
 
     };
 
-    const handleAddToWishlist = () => {
-        toast("Added to wishlist", {
+    // const handleAddToWishlist = () => {
+    //     toast("Added to wishlist", {
 
-            description: `${product.name} has been added to your wishlist.`,
-        });
-    };
+    //         description: `${product.name} has been added to your wishlist.`,
+    //     });
+    // };
+
+    const handleBuyNow = () => {
+        addToCart({ product, size: selectedSize, color: selectedColor, quantity })
+        router.push("/checkout")
+        // toast("Added to cart", {
+        //     description: `${product.name} has been added to your cart.`,
+        // });
+
+    }
 
     const increaseQuantity = () => {
         if (quantity < product.stock!) {
@@ -146,18 +154,18 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                     <div>
                         <h1 className="text-3xl font-bold text-gray-800 mb-2">{product.name}</h1>
 
-                        {/* <div className="flex items-center mb-4">
+                        <div className="flex items-center mb-4">
                             <div className="flex items-center">
                                 {[...Array(5)].map((_, i) => (
                                     <Star
                                         key={i}
                                         size={16}
-                                        className={i < Math.floor(product.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}
+                                        className={i < Math.floor(4) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}
                                     />
                                 ))}
                             </div>
-                            <span className="ml-2 text-sm text-gray-600">{product.rating} ({product.reviews.length} reviews)</span>
-                        </div> */}
+                            {/* <span className="ml-2 text-sm text-gray-600">{product.rating} ({product.reviews.length} reviews)</span> */}
+                        </div>
 
                         <div className="mb-6">
                             <div className="flex items-center">
@@ -181,9 +189,13 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                         </div>
 
                         <p className="text-gray-600 mb-6">{product.tagline}</p>
+                        <div className="w-full mb-6">
+                            <Image src={"/size-charts.jpg"} width={1000} height={0} alt={"size charts"} className="w-full md:w-10/12" />
+
+                        </div>
 
                         {/* Colors */}
-                        <div className="mb-6">
+                        {product.colors && <div className="mb-6">
                             <h3 className="text-sm font-medium text-gray-700 mb-2">Colors</h3>
                             <div className="flex gap-2">
                                 {product.colors.map((color) => (
@@ -198,7 +210,8 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                                     ></button>
                                 ))}
                             </div>
-                        </div>
+                        </div>}
+
 
                         {/* Sizes */}
                         <div className="mb-6">
@@ -251,10 +264,10 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                         {/* Action Buttons */}
                         <div className="flex flex-col sm:flex-row gap-4 mb-6">
                             <Button
-                                
+
                                 className="flex-1 bg-primary hover:bg-primary/35 text-black py-3 h-12"
-                               
-                                onClick={handleAddToWishlist}
+
+                                onClick={() => handleBuyNow()}
                             >
                                 {/* <Heart size={18} className="mr-2" /> */}
                                 Book Now
@@ -282,12 +295,12 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-b border-gray-200 py-6 mb-8">
                             <div className="flex items-center">
                                 <Truck size={20} className="text-brand-600 mr-2" />
-                                <span className="text-sm">Free shipping on orders over $100</span>
+                                <span className="text-sm">Free shipping</span>
                             </div>
-                            <div className="flex items-center">
+                            {/* <div className="flex items-center">
                                 <RotateCcw size={20} className="text-brand-600 mr-2" />
                                 <span className="text-sm">30-day easy returns</span>
-                            </div>
+                            </div> */}
                             {/* <div className="flex items-center">
                                 <ShieldCheck size={20} className="text-brand-600 mr-2" />
                                 <span className="text-sm">2-year warranty</span>
@@ -296,18 +309,22 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
 
                         <div className="flex flex-col gap-4  border-b border-gray-200  mb-8">
                             <Accordion type="single" collapsible>
-                                <AccordionItem value="item-1">
+                                {product.description && <AccordionItem value="item-1">
                                     <AccordionTrigger className="text-2xl">Description</AccordionTrigger>
-                                    <AccordionContent className="text-lg">
-                                        {product.description}
+                                    <AccordionContent className="text-lg ">
+                                       <pre className="font-latin w-full">
+                                         {product.description}
+                                        </pre>
                                     </AccordionContent>
-                                </AccordionItem>
-                                <AccordionItem value="item-2">
-                                    <AccordionTrigger className="text-2xl">Material</AccordionTrigger>
-                                    <AccordionContent className="text-lg">
-                                        {product.material}
-                                    </AccordionContent>
-                                </AccordionItem>
+                                </AccordionItem>}
+                                {product.material &&
+                                    <AccordionItem value="item-2">
+                                        <AccordionTrigger className="text-2xl">Material</AccordionTrigger>
+                                        <AccordionContent className="text-lg">
+                                            {product.material}
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                }
                                 {product.additionalInfo &&
                                     <AccordionItem value="item-3">
                                         <AccordionTrigger className="text-2xl">Additional Information</AccordionTrigger>
@@ -323,7 +340,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
 
 
                         {/* Social Share */}
-                        <div className="flex items-center space-x-4">
+                        {/* <div className="flex items-center space-x-4">
                             <span className="text-sm text-gray-700">Share:</span>
                             <a href="#" className="text-gray-500 hover:text-blue-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>
@@ -337,7 +354,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                             <a href="#" className="text-gray-500 hover:text-red-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>
                             </a>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 
