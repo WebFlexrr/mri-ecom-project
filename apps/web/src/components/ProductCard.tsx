@@ -71,30 +71,31 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
         <CardContent className="p-4 ">
           <h3 className="mb-1 font-medium line-clamp-1">{product.name}</h3>
-          {/* <p className="text-sm text-bloom-gray mb-2 line-clamp-1">{product.tagline}</p> */}
+          <p className="text-sm text-bloom-gray mb-2 line-clamp-1">{product.tagline}</p>
 
           <div className="flex items-baseline justify-between">
-            {/* <div>
-              {product.discountPrice ? (
+            <div>
+              {product.originalPrice ? (
                 <div className="flex items-center gap-2">
-                  <span className="font-medium">{formatCurrency(product.discountPrice)}</span>
-                  <span className="text-sm text-bloom-gray line-through">{formatCurrency(product.price)}</span>
+                  <span className="font-medium text-lg">{formatCurrency(product.price!)}</span>
+                  <span className="text-sm text-bloom-gray line-through">{formatCurrency(product.originalPrice!)}</span>
                 </div>
               ) : (
-                <span className="font-medium">{formatCurrency(product.price)}</span>
+                <span className="font-medium">{formatCurrency(product.price!)}</span>
               )}
-            </div> */}
-            <div>
+            </div>
+            {/* <div>
               {product.price &&
                 <span className="font-medium">{formatCurrency(product.price)}</span>
               }
-            </div>
+            </div> */}
 
-            {/* {product.stock < 10 && product.stock > 0 && (
+            {product.stock! < 10 && product.stock! > 0 && (
               <span className="text-xs text-bloom-coral">Only {product.stock} left</span>
-            )} */}
+            )}
           </div>
         </CardContent>
+       
       </Card>
     </Link>
   );
