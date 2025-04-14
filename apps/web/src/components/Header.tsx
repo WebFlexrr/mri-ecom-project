@@ -31,7 +31,7 @@ const Header = () => {
     <header className="w-full py-6 px-4 md:px-8 bg-bloom-cream border-b border-black/20">
 
       <div className="w-full max-w-6xl mx-auto flex justify-between items-center">
-        <section className="w-fit md:w-full flex items-center justify-items-start md:justify-center ">
+        <section className="w-fit md:w-full flex items-center justify-items-start ">
           <nav className="hidden  md:flex space-x-8 text-bloom-dark/80">
             {
               navLinks.map(link => <Link key={link.path} href={link.path} className={`${pathname == link.path && "border-b border-black"} hover:text-bloom-coral  transition-colors`}>
