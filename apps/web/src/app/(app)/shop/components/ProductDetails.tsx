@@ -3,7 +3,7 @@ import React, { FC, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { RotateCcw, ShoppingBag, Star, Truck } from "lucide-react";
+import { ShoppingBag, Star, Truck } from "lucide-react";
 import { Products } from '@/types/sanity';
 import Link from "next/link";
 import { useCartStore } from "@/store/useCartStore";

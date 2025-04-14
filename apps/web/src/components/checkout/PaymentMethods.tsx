@@ -7,16 +7,13 @@ import {
   AccordionTrigger 
 } from "@/components/ui/accordion";
 import { 
-
-  Phone,
-  
   House
 } from 'lucide-react';
 import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
+
 import { Control } from 'react-hook-form';
 import { CheckoutFormValues } from '@/schemas/checkoutSchema';
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
+import { FormField,  } from '@/components/ui/form';
 
 interface PaymentMethodsProps {
   control: Control<CheckoutFormValues>;
