@@ -86,7 +86,7 @@ const Footer = () => {
             <ul className="space-y-2 text-white/70">
               <li>
                 <Link
-                  href="/faq"
+                  href="#"
                   className="hover:text-bloom-coral transition-colors"
                 >
                   FAQ
@@ -94,7 +94,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/shipping"
+                  href="#"
                   className="hover:text-bloom-coral transition-colors"
                 >
                   Shipping
@@ -102,7 +102,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/returns"
+                  href="#"
                   className="hover:text-bloom-coral transition-colors"
                 >
                   Returns
@@ -110,7 +110,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/contact"
+                  href="#"
                   className="hover:text-bloom-coral transition-colors"
                 >
                   Contact Us
@@ -119,7 +119,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div>
+          {/* <div>
             <h4 className="font-medium mb-4">Newsletter</h4>
             <p className="text-white/70 mb-3">
               Join our community for mindful living tips and exclusive offers.
@@ -134,19 +134,19 @@ const Footer = () => {
                 Join
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="border-t border-white/10 mt-12 pt-6 text-white/50 text-sm flex flex-col md:flex-row justify-between">
           <p>© 2025 Webflexrr Labs. All rights reserved.</p>
           <div className="flex space-x-4 mt-2 md:mt-0">
             <Link
-              href="/privacy"
+              href="#"
               className="hover:text-white transition-colors"
             >
               Privacy Policy
             </Link>
-            <Link href="/terms" className="hover:text-white transition-colors">
+            <Link href="#" className="hover:text-white transition-colors">
               Terms of Service
             </Link>
           </div>
