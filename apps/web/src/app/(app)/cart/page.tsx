@@ -44,6 +44,7 @@ const Cart = () => {
     // }, []);
 
     const hasItems = cart.length > 0;
+    
 
     const handleRemoveItem = (productId: string) => {
         removeFromCart(productId);
@@ -188,13 +189,13 @@ const Cart = () => {
                                             placeholder="Discount code"
                                             className="w-full p-2.5 border rounded-md"
                                         />
-                                        <Button variant="outline" className="w-full">
-                                            Apply Discount
+                                        <Button className="w-full">
+                                            Apply Discount   
                                         </Button>
                                     </div>
                                 </CardContent>
                                 <CardFooter>
-                                    <Button asChild className="w-full text-black bg-primary hover:bg-primary/35">
+                                    <Button asChild className="w-full h- text-black bg-primary hover:bg-primary/35">
                                         <Link href="/checkout">Proceed to Checkout</Link>
                                     </Button>
                                 </CardFooter>

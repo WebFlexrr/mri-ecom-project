@@ -3,10 +3,11 @@ import React, { FC, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { ShoppingBag, Star, Truck } from "lucide-react";
+import { ShoppingBag, Star, Truck, Heart } from "lucide-react";
 import { Products } from '@/types/sanity';
 import Link from "next/link";
 import { useCartStore } from "@/store/useCartStore";
+import { useWishStore } from "@/store/useWishStore";
 import { toast } from "sonner";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Image from "next/image";
@@ -61,13 +62,32 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
         });
 
     };
+    // wishlist
+    const addToWishList = useWishStore(state => state.addToWishList)
+    if (!product) {
+        return (
+            <div className="min-h-screen flex flex-col">
+                <Header />
+                <div className="container mx-auto px-4 py-16 text-center">
+                    <h1 className="text-2xl font-bold mb-4">Product Not Found</h1>
+                    <p className="mb-6">Sorry, we couldn't find the product you're looking for.</p>
+                    <Button asChild>
+                        <Link href="/shop">Continue Shopping</Link>
+                    </Button>
+                </div>
+                <Footer />
+            </div>
 
-    // const handleAddToWishlist = () => {
-    //     toast("Added to wishlist", {
+        );
+    }
 
-    //         description: `${product.name} has been added to your wishlist.`,
-    //     });
-    // };
+    const handleAddToWishlist = () => {
+        addToWishList({ product, quantity, size: selectedSize, color: selectedColor })
+        toast("Added to wishlist", {
+
+            description: `${product.name} has been added to your wishlist.`,
+        });
+    };
 
     const handleBuyNow = () => {
         addToCart({ product, size: selectedSize, color: selectedColor, quantity })
@@ -281,14 +301,14 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                                 <ShoppingBag size={18} className="mr-2" />
                                 {product.stock! > 0 ? 'Add to Cart' : 'Out of Stock'}
                             </Button>
-                            {/* <Button
+                            <Button
                                 variant="outline"
                                 className="flex-1 border-brand-600 text-brand-600 hover:bg-brand-50 py-3 h-12"
                                 onClick={handleAddToWishlist}
                             >
                                 <Heart size={18} className="mr-2" />
                                 Add to Wishlist
-                            </Button> */}
+                            </Button>
                         </div>
 
                         {/* Product Benefits */}
@@ -312,8 +332,8 @@ const ProductDetails: FC<ProductDetailsProps> = ({ productDetails }) => {
                                 {product.description && <AccordionItem value="item-1">
                                     <AccordionTrigger className="text-2xl">Description</AccordionTrigger>
                                     <AccordionContent className="text-lg ">
-                                       <pre className="font-latin w-full">
-                                         {product.description}
+                                        <pre className="font-latin w-full">
+                                            {product.description}
                                         </pre>
                                     </AccordionContent>
                                 </AccordionItem>}

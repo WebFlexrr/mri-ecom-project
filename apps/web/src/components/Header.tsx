@@ -1,20 +1,23 @@
 "use client";
 import React, { useState } from "react";
-import { Menu, X, ShoppingBag } from "lucide-react";
+import { Menu, X, ShoppingBag, Heart } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
 import { useCartStore } from "@/store/useCartStore";
+import { useWishStore } from "@/store/useWishStore";
 import { usePathname, } from "next/navigation";
 
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const cart = useCartStore(state => state.cart)
+  const WishList = useWishStore(state => state.Wish)
   const pathname = usePathname()
 
   console.log(pathname)
   const cartItemCount = cart.reduce((count, item) => count + item.quantity, 0);
+  const wishItemCount = WishList.reduce((count, item) => count + item.quantity, 0);
 
   const navLinks = [{
     path: "/", name: "Home"
@@ -22,9 +25,9 @@ const Header = () => {
   {
     path: "/shop", name: "Shop"
   },
-  // {
-  //   path: "/Contact", name: "Contact"
-  // }
+    // {
+    //   path: "/Contact", name: "Contact"
+    // }
   ]
 
   return (
@@ -77,8 +80,16 @@ const Header = () => {
                 </span>
               )}
             </Link>
+            <Link href="/wishlist" className="text-gray-800 hover:text-primary-600 relative" aria-label="WishList">
+              <Heart size={20} />
+              {wishItemCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {wishItemCount}
+                </span>
+              )}
+            </Link>
 
-           
+
           </div>
         </section>
       </div>
@@ -123,6 +134,13 @@ const Header = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               Cart
+            </Link>
+            <Link
+              href="/wishlist"
+              className="text-bloom-dark hover:text-bloom-coral"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              wishlist
             </Link>
           </nav>
         </div>
