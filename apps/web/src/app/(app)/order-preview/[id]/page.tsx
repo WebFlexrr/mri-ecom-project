@@ -232,7 +232,7 @@ const OrderPreview = async ({
                             <div>
                                 <div className="flex items-center gap-3">
                                     <h1 className="text-3xl font-bold">Order {order._id}</h1>
-                                    {getStatusBadge(order.status)}
+                                    {getStatusBadge(order.status!)}
                                 </div>
                                 <p className="text-gray-600 mt-1">
                                     Placed on {formatDate(order.createdAt)}

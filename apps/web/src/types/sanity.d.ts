@@ -141,17 +141,7 @@ export type Slug = {
   source?: string
 }
 
-export type Order = {
-  _id: string
-  _type: 'order'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  name?: string
-  email?: string
-  message?: string
-  createdAt?: string
-}
+
 
 export type Color = {
   _type: 'color'
